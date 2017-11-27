@@ -1,0 +1,97 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package edosalcanzables;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * EstadosAlcanzables
+ * CLASE que se encarga de Identificar los estados Alcanzables
+ * @author Jorge Ignacio Rivera Cortes
+ */
+public class EstadosAlcanzables {
+    Integer gEEstadoInicial;
+    Set<Integer> objSetEdosAlcanzables, objSetUltimosEdosAlcAgregados;
+//    Set<Integer> objSetAlfabetoEstados, objSetAlfabetoTransiciones, objSetEstadosFinales, objSetEdosAlcanzables, objSetUltimosEdosAlcAgregados;
+    Map<Integer, Set<Integer>> objMapEdosActualEdosSig;    
+
+    
+    /**
+     * EstadosAlcanzables
+     * CONSTRUCTOR que inicializa los parámetros y autributos a partir de un objeto Automata
+     * @param objAutomata
+     */    
+    public EstadosAlcanzables(Automata objAutomata) {
+        this.gEEstadoInicial = objAutomata.gEEstadoInicial;//gEEstadoInicial;
+        this.objMapEdosActualEdosSig = objAutomata.objMapEdosActualEdosSig;//objMapEdosActualEdosSig;
+        System.out.println(this.objMapEdosActualEdosSig);
+    }
+
+//    public boolean validaAutomata()
+//    {
+//        for (Map.Entry<Integer, Set<Integer>> objEntry: objMapEdosActualEdosSig.entrySet())
+//        {
+//            if (objEntry.getValue().size() > 1)
+//            {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+    /**
+     * RegresaEstadosAlcanzables
+     * METODO para obtener el conjunto de Estados Alcanzables 
+     * @return objSetEdosAlcanzables que es el conjunto de Estados Alcanzables
+     */    
+    public Set<Integer> RegresaEstadosAlcanzables(){
+        objSetEdosAlcanzables = new HashSet<>();                // Se crea el conjunto: "objSetEdosAlcanzables"
+        objSetUltimosEdosAlcAgregados = new HashSet<>();        // Se crea el conjunto: "objSetUltimosEdosAlcAgregados"
+        Integer eEdoActual = gEEstadoInicial;
+//        System.out.println(eEdoActual);
+        
+        objSetEdosAlcanzables.add(eEdoActual);                  // Se agrega el elemento Inicial
+        objSetUltimosEdosAlcAgregados.add(eEdoActual);          // Se agrega el elemento Inicial
+//        System.out.println(objSetEdosAlcanzables);
+       
+
+//        Iterator objItrSet1 = objSetEdosAlcanzables.iterator();
+//        Iterator objItrSet2 = objSetEdosAlcanzables.iterator();
+        
+        while(!objSetUltimosEdosAlcAgregados.isEmpty()){
+            /* 
+             * Para cada eEdoActual2 del conjunto "objSetUltimosEdosAlcAgregados", eliminarlo del conjunto "objSetUltimosEdosAlcAgregados"
+             * y Agregar sus EstadosSiguientes al conjunto "objSetEdosAlcanzables"
+             */
+            System.out.println("* Conjunto objSetUltimosEdosAlcAgregados: " + objSetUltimosEdosAlcAgregados);
+            
+//            for(Integer eEdoActual2 : objSetUltimosEdosAlcAgregados){  
+            for(Iterator<Integer> iterEdoActual2 = objSetUltimosEdosAlcAgregados.iterator(); iterEdoActual2.hasNext();){
+                final Integer eEdoActual2 = iterEdoActual2.next();
+                System.out.println("Estado actual: " + eEdoActual2);
+                iterEdoActual2.remove();
+                System.out.println("\t Conjunto objSetUltimosEdosAlcAgregados: " + objSetUltimosEdosAlcAgregados);
+                /* 
+                 * Para cada "eEdoSiguiente" del conjunto referenciado por "eEdoActual2" en el mapa de objMapEdosActualEdosSig, 
+                 * agregar y evaluar si se puede agregar al conjunto "objSetEdosAlcanzables", 
+                 * Si fue exitoso tambien se agrega al conjunto: "objSetUltimosEdosAlcAgregados"
+                 */                 
+//                for(Integer eEdoSiguiente : objMapEdosActualEdosSig.get(eEdoActual2)){       // "objMapEdosActualEdosSig.get(eEdoActual)" Devuelve el CONJUNTO de EstadosSiguientes, apuntado por eEdoActual
+                for(Iterator<Integer> iterEdoSiguiente = objMapEdosActualEdosSig.get(eEdoActual2).iterator(); iterEdoSiguiente.hasNext();){  
+                    final Integer eEdoSiguiente = iterEdoSiguiente.next();
+                    if(objSetEdosAlcanzables.add(eEdoSiguiente))    objSetUltimosEdosAlcAgregados.add(eEdoSiguiente);
+                    System.out.println("\t\t Conjunto objSetEdosAlcanzables        : " + objSetEdosAlcanzables);
+                    System.out.println("\t\t Conjunto objSetUltimosEdosAlcAgregados: " + objSetUltimosEdosAlcAgregados);
+
+                }      
+            }
+        }
+        return objSetEdosAlcanzables;
+    }
+}

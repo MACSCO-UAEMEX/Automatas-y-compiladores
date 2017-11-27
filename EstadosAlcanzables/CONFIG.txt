@@ -1,0 +1,28 @@
+#ELEMENTOS NECESARIOS PARA EL AUTOMATA
+
+# Q es igual al conjunto de estados del automata, los estados van separados por coma
+
+-Q	"C:\Automatas-y-compiladores-MACSCO\EstadosAlcanzables\Estados.txt"
+
+# A es el alfabeto que corresponde al automata
+
+-A	"C:\Automatas-y-compiladores-MACSCO\EstadosAlcanzables\AlfeboEspañol.txt"
+
+# EI es el estado incial que corresponde al automata, pertenece a Q
+
+-EI	0
+
+# F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
+
+-F	"C:\Automatas-y-compiladores-MACSCO\EstadosAlcanzables\Finales.txt"
+
+
+# T corresponde a la funcion de transicion, el estado X con el elemento del alfabeto Y hacia que estado va
+# se define por [estado, alfabeto, estado] (Tabulador) [estado, alfabeto, estado]
+
+-T	"C:\Automatas-y-compiladores-MACSCO\EstadosAlcanzables\nuevos\3.txt"
+
+#Rutas de trabajo
+
+-FWORK		C:\Elimina_no_alcanzables.txt
+-FSALIDA	C:\estados_no_alcanzables.txt

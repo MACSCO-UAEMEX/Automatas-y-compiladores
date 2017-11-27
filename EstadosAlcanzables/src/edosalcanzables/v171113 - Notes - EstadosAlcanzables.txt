@@ -1,0 +1,70 @@
+Hommel, S. (1999). Convenciones de Código para el lenguaje de programación JAVA
+
+public boolean validaEstadosFinalesEnTransiciones()		// Del archivo de En Archivo de Transiciones
+public boolean validaEstadoInicialEnTransiciones()		// Del archivo CONFIG En Archivo de Transiciones
+public boolean validaEstadoInicial()					// Del archivo CONFIG En alfabeto de Estados 
+public boolean validaEstadosFinales()					// De la lista de Edos Finales En alfabeto de Estados
+public boolean validaEstados(int lEIndice)				// De la Función de Transiciones En alfabeto de Estados
+public boolean validaTransiciones(int lEIndice)			// De la Función de Transiciones En alfabeto de Transiciones
+
+public boolean validaEstadosFinalesAlcanzables()		// Valida que la lista de estados Finales (Estados de Aceptacion) sen alcanzables desde el estado inicial.
+
+--------------------
+
+public FinalStatesInTransitionsFileValidator
+public InitialStateInTransitionsFileValidator
+public InitialStateInStatesAlphabetValidator
+public FinalStatesInStatesAlphabetValidator
+public StatesInStatesAlphabetValidator
+public TransitionsInTransitionsAlphabetValidator
+
+public ReachableFinalStatesValidator
+
+18,30,49
+216,63,19,0
+216,100,19,0
+
+__________________________________
+
+AutomataFile
+ValidaciónAutomataFile
+AutomataMap
+Transformador
+
+
+Automata
+
+
+--------------------------------
+
+Cambiar los argumentos por la una instancia de la clase Autómata
+Probar mis clases
+
+
+
+-------------------------------------------
+
+VALIDA DATOS DE ENTRADA
+	Validador de datos completos
+		Todas las trancisiones (del Archivo de Transiciones), tiene un dato correcto, es decir:
+			Columna de Estados Actuales 	existen en "Alfabeto de Estados",
+			Columna de Transición 			existe en "Alfabeto de Transiciones",
+			Columna de Estados Siguientes 	existe en "Alfabeto de Estados",
+			Símbolo de Estado Inicial 		existe en "Alfabeto de Estados",
+			Simbolo de Estado Inicial 		existe en Columna de Estados Actuales del Archivo de Transiciones,
+			Lista   de Estados Finales 		existe en "Alfabeto de Estados",
+			Lista	de Estado  Finales		existe en Columna de Estados Finales del Archivo de Transiciones.
+			
+
+			
+			
+-----------------------------------------
+
+Crear treemap			
+
+
+
+
+
+
+
