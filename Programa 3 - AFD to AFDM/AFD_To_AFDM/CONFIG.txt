@@ -1,0 +1,28 @@
+#ELEMENTOS NECESARIOS PARA EL AUTOMATA
+
+# Q es igual al conjunto de estados del automata, los estados van separados por coma
+
+-Q	1,2,3,4,5,6
+
+# A es el alfabeto que corresponde al automata
+
+-A	a,b,c
+
+# EI es el estado incial que corresponde al automata, pertenece a Q
+
+-EI	0
+
+# F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
+
+-F	5,4
+
+
+# T corresponde a la funcion de transicion, el estado X con el elemento del alfabeto Y hacia que estado va
+# se define por [estado, alfabeto, estado] (Tabulador) [estado, alfabeto, estado]
+
+-T	[1,a,2].[2,c,3].[6,c,2].[3,a,4].[4,b,5]  
+
+#Rutas de trabajo
+
+-FWORK		C:\Automata\Elimina_no_alcanzables.txt
+-FSALIDA	C:\Salida_no_alcanzables\
