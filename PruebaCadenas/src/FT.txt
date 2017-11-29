@@ -1,0 +1,12 @@
+0,Juan ,1
+1,es,11
+11,alto,12
+1,Carlos,2
+2,Escribio,3
+3,varios,7
+7,poemas,8
+8,historicos,9
+8,liturgicos,10
+3,una,4
+4,novela,5
+5,rusa,6
