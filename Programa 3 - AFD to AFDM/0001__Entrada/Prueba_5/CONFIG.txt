@@ -2,11 +2,11 @@
 
 # Q es igual al conjunto de estados del automata, los estados van separados por coma
 
--Q	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\Estados.txt"
+-Q	EstadosT.txt
 
 # A es el alfabeto que corresponde al automata
 
--A	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\AlfeboEspañol.txt"
+-A	Alfabeto_Espanol.txt
 
 # EI es el estado incial que corresponde al automata, pertenece a Q
 
@@ -14,13 +14,14 @@
 
 # F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
 
--F	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\Finales.txt"
+-F	Finales.txt
 
 
 # T corresponde a la funcion de transicion, el estado X con el elemento del alfabeto Y hacia que estado va
 
--T	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\FT.txt"
+-T	FT.txt
 
 #Rutas de trabajo
 
--FSALIDA	C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Output
+-FWORK		C:\Automatas\0003__AFD_To_AFDM\0001__Entrada\Prueba_5
+-FSALIDA	C:\Automatas\0003__AFD_To_AFDM\0002__Salida
