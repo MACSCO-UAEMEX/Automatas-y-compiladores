@@ -23,6 +23,7 @@
 
 #Rutas de trabajo
 
--FWORK "0002__Entradas\Pruebas_documento\Prueba_1"
+-FWORK		"0002__Entradas\Pruebas_documento\Prueba_7"
 
--FSALIDA	"0003__Salidas\0001__Salidas_1"
+-FSALIDA	"0003__Salidas\0007__Salidas_7"
+
