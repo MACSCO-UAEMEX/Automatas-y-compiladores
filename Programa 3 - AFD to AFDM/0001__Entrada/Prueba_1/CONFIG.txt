@@ -23,5 +23,5 @@
 
 #Rutas de trabajo
 
--FWORK		C:\Automatas\0003__AFD_To_AFDM\0001__Entrada\Prueba_1
--FSALIDA	C:\Automatas\0003__AFD_To_AFDM\0002__Salida
+-FWORK		"0001__Entrada\Prueba_1"
+-FSALIDA	0002__Salida
