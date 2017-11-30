@@ -25,4 +25,4 @@
 
 -FWORK "0002__Entradas\Pruebas_documento\Prueba_6"
 
--FSALIDA	"0003__Salidas"
+-FSALIDA	"0003__Salidas\0006__Salidas_6"

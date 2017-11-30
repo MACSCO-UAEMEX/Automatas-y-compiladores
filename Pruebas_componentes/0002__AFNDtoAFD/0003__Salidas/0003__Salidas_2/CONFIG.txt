@@ -22,7 +22,7 @@
  
 #Rutas de trabajo
  
--FWORK 	 "0003__Salidas"
+-FWORK 	 "0003__Salidas\0003__Salidas_2"
  
--FSALIDA 	 "0003__Salidas"
+-FSALIDA 	 "0003__Salidas\0003__Salidas_2"
  
