@@ -23,5 +23,5 @@
 
 #Rutas de trabajo
 
--FWORK		"0001__Entrada\Prueba_1"
--FSALIDA	0002__Salida
+-FWORK		0001__Entrada\Prueba_1
+-FSALIDA	0002__Salida\0001__Salidas_1

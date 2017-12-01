@@ -24,4 +24,4 @@
 #Rutas de trabajo
 
 -FWORK		0001__Entrada\Prueba_2
--FSALIDA	0003__AFD_To_AFDM\0002__Salida
+-FSALIDA	0002__Salida\0002__Salidas_2
