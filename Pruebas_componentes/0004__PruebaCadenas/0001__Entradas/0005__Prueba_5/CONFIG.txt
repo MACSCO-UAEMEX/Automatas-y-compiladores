@@ -23,8 +23,8 @@
 
 #Rutas de trabajo
 
--OUT	"0002__Salidas\0001__Salidas_1"
+-OUT	"0002__Salidas\0005__Salidas_5"
 
--CAD "Lopez a a Hernandez, Lopez a a a Hernandez es bueno, Lopez a Hernandez y Garcia chaparro, Lopez, Lopez a Hernandez y Garcia o Fernandez, Lopez a a a a, Lopez a Hernandez es, Lopez a Hernandez y Garcia o Fernandez Lopez a a Hernandez , Lopez a a a Hernandez y Garcia , Lopez a Hernandez y"
+-CAD "a c d, b c d, a b b a c d, a b a b c d d e d e d e, b a a b c d d e d e d e, , b c d d, a c d d, a b a b c d d e d e d e d, b a a b c d d e d e d e d"
 
--FWORK "0001__Entradas\0001__Prueba_1"
+-FWORK "0001__Entradas\0005__Prueba_5"
