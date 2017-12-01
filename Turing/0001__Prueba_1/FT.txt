@@ -1,0 +1,4 @@
+0,a,0,a,d
+0,b,1,blanco,i
+1,a,0,hola,d
+0,b,1,blanco,i
