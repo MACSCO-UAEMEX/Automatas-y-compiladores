@@ -6,7 +6,7 @@
 
 # A es el alfabeto que corresponde al automata
 
--A	"AlfeboEspanol.txt"
+-A	"AlfeboEsp.txt"
 
 # EI es el estado incial que corresponde al automata, pertenece a Q
 
@@ -23,8 +23,8 @@
 
 #Rutas de trabajo
 
--OUT	"C:\Automatas-y-compiladores\PruebaCadenas\src"
+-OUT	"0002__Salidas\0004__Salidas_4"
 
--CAD "Lopez a Hernandez y Garcia o Fernandez, Fernandez Hernandez"
+-CAD "d d d d d d,d d d d d c c,d d d c, d d c a a, d d d d c a a f j f j, d d c c j c j c, d d d d d c a, d d c a a f j f, d d d c a a c a, d d d d c a a c a a c j"
 
--FWORK "C:\Automatas-y-compiladores\PruebaCadenas\src"
+-FWORK "0001__Entradas\0004__Prueba_4"

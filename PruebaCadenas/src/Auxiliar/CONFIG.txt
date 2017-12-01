@@ -1,12 +1,12 @@
-﻿#ELEMENTOS NECESARIOS PARA EL AUTOMATA
+#ELEMENTOS NECESARIOS PARA EL AUTOMATA
 
 # Q es igual al conjunto de estados del automata, los estados van separados por coma
 
--Q	"Estados.txt"
+-Q	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\Estados.txt"
 
 # A es el alfabeto que corresponde al automata
 
--A	"AlfeboEspanol.txt"
+-A	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\AlfeboEspañol.txt"
 
 # EI es el estado incial que corresponde al automata, pertenece a Q
 
@@ -14,17 +14,13 @@
 
 # F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
 
--F	"Finales.txt"
+-F	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\Finales.txt"
 
 
 # T corresponde a la funcion de transicion, el estado X con el elemento del alfabeto Y hacia que estado va
 
--T	"FT.txt"
+-T	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Prueba_1\FT.txt"
 
 #Rutas de trabajo
 
--OUT	"C:\Automatas-y-compiladores\PruebaCadenas\src"
-
--CAD "Lopez a Hernandez y Garcia o Fernandez, Fernandez Hernandez"
-
--FWORK "C:\Automatas-y-compiladores\PruebaCadenas\src"
+-FSALIDA	C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Output

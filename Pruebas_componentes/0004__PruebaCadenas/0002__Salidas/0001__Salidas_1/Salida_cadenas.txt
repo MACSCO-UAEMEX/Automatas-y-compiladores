@@ -1,0 +1,10 @@
+[Lopez a a Hernandez]	true
+[Lopez a a a Hernandez es bueno]	true
+[Lopez a Hernandez y Garcia chaparro]	true
+[Lopez]	false
+[Lopez a Hernandez y Garcia o Fernandez]	true
+[Lopez a a a a]	false
+[Lopez a Hernandez es]	false
+[Lopez a Hernandez y Garcia o Fernandez Lopez a a Hernandez]	true
+[Lopez a a a Hernandez y Garcia]	false
+[Lopez a Hernandez y]	false

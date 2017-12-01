@@ -7,13 +7,10 @@ package PrbAutomataCad;
 
 import Funciones.MyListArgs;
 import Funciones.MySintaxis;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -22,7 +19,7 @@ import java.util.TreeMap;
  */
 public class PruebaAutomataCadena {
 
-    public String MT, Q, A, R, q, B, F, T, OUT, CAD;
+    public String Q, A, R, q, B, F, T, OUT, CAD, FWORK;
 
     public PruebaAutomataCadena(String[] args) {
         // TODO code application logic here
@@ -33,44 +30,41 @@ public class PruebaAutomataCadena {
         if (!ConfigFile.equals("")) {
             Param.AddArgsFromFile(ConfigFile);
         }//fin if
-        String Sintaxis = "-Q:str -A:str [-R:str] -EI:str [-B:str] -F:str -T:str [-OUT:str] [-CAD:str]";
+        String Sintaxis = "-Q:str -A:str [-R:str -B:str] -EI:str  -F:str -T:str -OUT:str -CAD:str -FWORK:str";
         MySintaxis Review = new MySintaxis(Sintaxis, Param);
         //PARAMETROS FORZOSOS                  
-        MT = Param.ValueArgsAsString("-MT", "");
         Q = Param.ValueArgsAsString("-Q", "");
         A = Param.ValueArgsAsString("-A", "");
         R = Param.ValueArgsAsString("-R", "");
         q = Param.ValueArgsAsString("-EI", "");
-        B = Param.ValueArgsAsString("-Q", "");
+        B = Param.ValueArgsAsString("-B", "");
         F = Param.ValueArgsAsString("-F", "");
         T = Param.ValueArgsAsString("-T", "");
         OUT = Param.ValueArgsAsString("-OUT", "");
-        CAD = Param.ValueArgsAsString("-CAD", "");
+        CAD = Param.ValueArgsAsString("-CAD", "").replace("\\", "/");
+        FWORK = Param.ValueArgsAsString("-FWORK", "").replace("\\", "/");
     }
 
     public void Funcion() {
         TreeMap<String, ArrayList> map_Au = new TreeMap<>(); //#Se guardan los estados por kes y los values con las posibles trasendencias
         ArrayList<String> aL_Datos = new ArrayList<>(); //#Almacenaje de todas las líneas de dentro del archivo de texto de transiciones
-        ArrayList<String> aL_Alt = new ArrayList<>();
+        HashMap<Integer, String> aL_Alt = new HashMap<>();
         ArrayList<Automata> AL = new ArrayList<>(); //#Almacenaje de las líneas de datos en forma de automata
         String[] datos; //#Auxiliar en la lectura de cada una de las líneas de aL_Datos
         String cadTXT; //Lectura de cada cadena de texto del archivo de transiciones
         String ctrEdos = "0"; //#Control de cada uno de los estados que contenga el automata y es el dato almacenado dentro de la 'key' del treemap
         Automata a; //#objeto que será almacenado dentro como value del treemap
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(T)));
-            cadTXT = br.readLine();
-            while (cadTXT != null) {
-                aL_Datos.add(cadTXT);
-                cadTXT = br.readLine();
+            String[] lASCadenas = new ManejoArchivos().Read_Text_File_NoNull(FWORK + "/" + T);
+            for (int i = 0; i < lASCadenas.length; i++) {
+                    aL_Datos.add(lASCadenas[i].trim());
             }
-            br.close();//#Fin de lectura de archivo de texto
-            br = new BufferedReader(new FileReader(new File(F)));
-            F = br.readLine();
+            
+            F = new ManejoArchivos().Read_Text_File_NoNull(FWORK + "/" + F)[0].trim();
             Collections.sort(aL_Datos);//#ordenamiento de la colección de cada uno de los datos
             for (String linea : aL_Datos) {//#Almacenaje de las transiciones del automata en el treemap
                 datos = linea.replace("[", "").replace("]", "").replace(" ", "").split(",");
-                aL_Alt.add(datos[1]);
+                aL_Alt.put(aL_Alt.size(),datos[1].trim());
                 a = new Automata(datos[0], datos[1], datos[2]);
                 if (!ctrEdos.equals(datos[0])) {
                     map_Au.put(ctrEdos, AL);
@@ -81,37 +75,47 @@ public class PruebaAutomataCadena {
             }
             map_Au.put(ctrEdos, AL);
             //#Fin de almacenaje de transiciones del automata
-            if (ValidarAlfabeto(aL_Alt, new BufferedReader(new FileReader(new File(A))))) {
+            String lSSalida = "";
+            
+            if (ValidarAlfabeto(aL_Alt, new ManejoArchivos().Read_Text_File_NoNull(FWORK + "/" + A))) {
                 for (String str : CAD.split(",")) {//Comienza el recorrido de cada una de las cadenas a validar
                     str = str.trim();//#Quitar espacios
-                    System.out.println((str.equals("") ? "(Vacío)" : "(" + str + ")") + " " + (ValidarCad(str, map_Au) ? "true" : "false"));
+                    System.out.println((str.equals("") ? "(Vacío)" : "[" + str + "]") + " " + (ValidarCad(str, map_Au) ? "true" : "false"));
+                    lSSalida += (str.equals("") ? "(Vacío)" : "[" + str + "]") + "\t" + (ValidarCad(str, map_Au) ? "true" : "false") + "\r\n";
                     //#Impresión de cadena válida o no mediante el método de validación
-                }
+                }  
             } else {
                 System.out.println("El alfabeto del automata, no corresponde.");
             }
-        } catch (IOException e) {
-            System.out.println("Error en almacenaje de automata del archivo:\t" + T);
-            System.out.println(e);
+            
+            if (!new ManejoArchivos().ExisteCarpetaArchivo(OUT))
+            {
+                new ManejoArchivos().CrearCarpetas(OUT);
+            }
+            
+            new ManejoArchivos().Write_String_File(OUT + "/Salida_cadenas.txt", lSSalida);
+            
+        } catch (Exception e) {
+            System.out.println("Error en almacenaje de automata del archivo:\t" + e.getMessage());
         }
     }
 
-    public boolean ValidarAlfabeto(ArrayList<String> aL_Val, BufferedReader Alfebo) {
+    public boolean ValidarAlfabeto(HashMap<Integer, String> aL_Val, String[] Alfebo) {
         try {
-            String cadVal = "";
-            ArrayList<String> aL = new ArrayList();
-            cadVal = Alfebo.readLine();
-            for (String str : cadVal.replace("\n", "").replace("\r", "").split(",")) {
-                aL.add(str);
+            HashMap<Integer, String> aL = new HashMap<>();
+            String[] cadVals = Alfebo[0].split(",");
+            for (int i = 0 ; i < cadVals.length; i++) {
+                aL.put(aL.size(), cadVals[i].trim());
             }
-            for (String c : aL_Val) {
-                if (!aL.contains(c)) {
+            
+            for (Map.Entry<Integer, String> objEntry : aL_Val.entrySet()) {
+                if (!aL.containsValue(objEntry.getValue().trim())) {
                     return false;
                 }
             }
             return true;
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e);
             System.out.println(e.getMessage());
             return false;
@@ -139,7 +143,7 @@ public class PruebaAutomataCadena {
                     } else {
                         cont++;//#Se hace conteo por cada una de las posibles transiciones que no pudo pasar el caracter
                     }
-                } catch (java.lang.StringIndexOutOfBoundsException ex) {
+                } catch (StringIndexOutOfBoundsException e) {
                     return 1 != 1;//#En caso de que la cadena exceda el número de caracteres, es porque ya no es una cadena válida
                 }
             }

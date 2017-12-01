@@ -2,11 +2,11 @@
 
 # Q es igual al conjunto de estados del automata, los estados van separados por coma
 
--Q	"Estados.txt"
+-Q	"C:\Users\Maritza\Documents\NetBeansProjects\PruebaCadenas\src\Estados.txt"
 
 # A es el alfabeto que corresponde al automata
 
--A	"AlfeboEspanol.txt"
+-A	"C:\Users\Maritza\Documents\NetBeansProjects\PruebaCadenas\src\AlfeboEspañol.txt"
 
 # EI es el estado incial que corresponde al automata, pertenece a Q
 
@@ -14,17 +14,15 @@
 
 # F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
 
--F	"Finales.txt"
+-F	"C:\Users\Maritza\Documents\NetBeansProjects\PruebaCadenas\src\Finales.txt"
 
 
 # T corresponde a la funcion de transicion, el estado X con el elemento del alfabeto Y hacia que estado va
 
--T	"FT.txt"
+-T	"C:\Users\Maritza\Documents\NetBeansProjects\PruebaCadenas\src\FT.txt"
 
 #Rutas de trabajo
 
--OUT	"C:\Automatas-y-compiladores\PruebaCadenas\src"
+-FSALIDA	C:\Users\Maritza\Documents\NetBeansProjects\PruebaCadenas\src\Output
 
--CAD "Lopez a Hernandez y Garcia o Fernandez, Fernandez Hernandez"
-
--FWORK "C:\Automatas-y-compiladores\PruebaCadenas\src"
+-CAD	otorinolaringologo, orin, logo, olat, llarin, ori, gool, goool
