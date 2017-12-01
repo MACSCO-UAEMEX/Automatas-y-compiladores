@@ -117,59 +117,59 @@ public class Automata
      * Método para construir un autómata en un mapa ordenado con la clase TreeMap
      * @return Un mapa ordenado que contiene los datos relacionados a la función de transición
      */
-    public TreeMap<Integer, Set<Integer>> contruirAutomata()
-    {
-        TreeMap<Integer,Set<Integer>> objHashMapAutomata = new TreeMap<>();
-
-        Validation objValidacion = new Validation(lSCadenas, objMapAlfabetoEstados, objMapAlfabetoTransiciones, objMapEstadosFinales, gSEstadoInicial);
-        if (!objValidacion.validacionIntegral())
-        {
-            System.out.println("La definicion del automata presenta errores");
-        } else
-        {
-            for (int i = 0; i < lSCadenas.length; i++)      // lSCadenas es un arreglo de cadenas, donde cada una de ellas una transicion
-            {
-                String[] lSElementos = lSCadenas[i].replace("[", "").replace("]", "").split(",");   // lSElementos es un Arreglo de Cadenas que  guarda los elementos de cada cadena del arreglo lSCadenas 
-
-                int lSIdentificador = obtenerIdentificador(obtenerKey(objMapAlfabetoEstados, lSElementos[0].trim()),
-                         objMapAlfabetoTransiciones.size(),
-                        obtenerKey(objMapAlfabetoTransiciones, lSElementos[1].trim()));
-                
-//                System.out.println(lSIdentificador);
-                Set<Integer> objSetBandera = new TreeSet<>();
-
-                if (objHashMapAutomata.isEmpty())
-                {
-                    objSetBandera.add(Integer.parseInt(lSElementos[2].trim()));
-                    objHashMapAutomata.put(lSIdentificador, objSetBandera);
-                } else if (objHashMapAutomata.containsKey(lSIdentificador))
-                {
-                    objSetBandera = objHashMapAutomata.get(lSIdentificador);
-                    boolean lBEstadoRepetido = false;
-                    for (Iterator objIterator = objSetBandera.iterator(); objIterator.hasNext();)
-                    {
-                        if (Integer.parseInt(String.valueOf(objIterator.next())) == Integer.parseInt(lSElementos[2].trim()))
-                        {
-                            lBEstadoRepetido = true;
-                            break;
-                        }
-                    }
-
-                    if (!lBEstadoRepetido)
-                    {
-                        objSetBandera.add(Integer.parseInt(lSElementos[2].trim()));
-                        objHashMapAutomata.put(lSIdentificador, objSetBandera);
-                    }
-                } else
-                {
-                    objSetBandera = new TreeSet<>();
-                    objSetBandera.add(Integer.parseInt(lSElementos[2].trim()));
-                    objHashMapAutomata.put(lSIdentificador, objSetBandera);
-                }
-            }
-        }
-        return objHashMapAutomata;
-    }
+//    public TreeMap<Integer, Set<Integer>> contruirAutomata()
+//    {
+//        TreeMap<Integer,Set<Integer>> objHashMapAutomata = new TreeMap<>();
+//
+//        Validation objValidacion = new Validation(lSCadenas, objMapAlfabetoEstados, objMapAlfabetoTransiciones, objMapEstadosFinales, gSEstadoInicial);
+//        if (!objValidacion.validacionIntegral())
+//        {
+//            System.out.println("La definicion del automata presenta errores");
+//        } else
+//        {
+//            for (int i = 0; i < lSCadenas.length; i++)      // lSCadenas es un arreglo de cadenas, donde cada una de ellas una transicion
+//            {
+//                String[] lSElementos = lSCadenas[i].replace("[", "").replace("]", "").split(",");   // lSElementos es un Arreglo de Cadenas que  guarda los elementos de cada cadena del arreglo lSCadenas 
+//
+//                int lSIdentificador = obtenerIdentificador(obtenerKey(objMapAlfabetoEstados, lSElementos[0].trim()),
+//                         objMapAlfabetoTransiciones.size(),
+//                        obtenerKey(objMapAlfabetoTransiciones, lSElementos[1].trim()));
+//                
+////                System.out.println(lSIdentificador);
+//                Set<Integer> objSetBandera = new TreeSet<>();
+//
+//                if (objHashMapAutomata.isEmpty())
+//                {
+//                    objSetBandera.add(Integer.parseInt(lSElementos[2].trim()));
+//                    objHashMapAutomata.put(lSIdentificador, objSetBandera);
+//                } else if (objHashMapAutomata.containsKey(lSIdentificador))
+//                {
+//                    objSetBandera = objHashMapAutomata.get(lSIdentificador);
+//                    boolean lBEstadoRepetido = false;
+//                    for (Iterator objIterator = objSetBandera.iterator(); objIterator.hasNext();)
+//                    {
+//                        if (Integer.parseInt(String.valueOf(objIterator.next())) == Integer.parseInt(lSElementos[2].trim()))
+//                        {
+//                            lBEstadoRepetido = true;
+//                            break;
+//                        }
+//                    }
+//
+//                    if (!lBEstadoRepetido)
+//                    {
+//                        objSetBandera.add(Integer.parseInt(lSElementos[2].trim()));
+//                        objHashMapAutomata.put(lSIdentificador, objSetBandera);
+//                    }
+//                } else
+//                {
+//                    objSetBandera = new TreeSet<>();
+//                    objSetBandera.add(Integer.parseInt(lSElementos[2].trim()));
+//                    objHashMapAutomata.put(lSIdentificador, objSetBandera);
+//                }
+//            }
+//        }
+//        return objHashMapAutomata;
+//    }
     
     
     /**
@@ -180,9 +180,9 @@ public class Automata
     public Map<Integer, Set<Integer>> contruirMapEdosActualEdosSig(){
         objMapEdosActualEdosSig = new TreeMap<>();    
 
-//        Validation objValidacion = new Validation(lSCadenas, objMapAlfabetoEstados, objMapAlfabetoTransiciones, objMapEstadosFinales, gSEstadoInicial);
-//        if (!objValidacion.validacionIntegral())
-        if (1!=1)           
+        Validation objValidacion = new Validation(lSCadenas, objMapAlfabetoEstados, objMapAlfabetoTransiciones, objMapEstadosFinales, gSEstadoInicial);
+        if (!objValidacion.validacionIntegral())
+//        if (1!=1)           
         {
             System.out.println("La definicion del automata presenta errores");
         } else
@@ -274,18 +274,18 @@ public class Automata
      * run
      * Método para mostrar el Autómata
      */
-    public void run()
-    {
-        this.muestraAlfabetos();
-        objTreeMapAutomata = this.contruirAutomata();
-        
-        for (Map.Entry<Integer, Set<Integer>> entry : objTreeMapAutomata.entrySet())
-        {
-            System.out.println("Clave " + entry.getKey());
-            System.out.println("Con estados " + entry.getValue().toString());
-        }
-
-        System.out.println("Tamaño del mapa " + objTreeMapAutomata.size());
-
-    }
+//    public void run()
+//    {
+//        this.muestraAlfabetos();
+//        objTreeMapAutomata = this.contruirAutomata();
+//        
+//        for (Map.Entry<Integer, Set<Integer>> entry : objTreeMapAutomata.entrySet())
+//        {
+//            System.out.println("Clave " + entry.getKey());
+//            System.out.println("Con estados " + entry.getValue().toString());
+//        }
+//
+//        System.out.println("Tamaño del mapa " + objTreeMapAutomata.size());
+//
+//    }
 }

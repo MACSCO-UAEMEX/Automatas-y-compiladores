@@ -1,35 +1,39 @@
 package edosalcanzables;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Validation
- Clase que realiza validaciones acerca del automata
+ * Clase que realiza validaciones acerca del automata
  * @author Jonathan Rojas Simón <ids_jonathan_rojas@hotmail.com>
  */
 public class Validation
 {
-    String[] gSCadenas;
-    HashMap<Integer,String> objHashMapAlfeboEstados, objHashMapAlfeboTransiciones, objHashMapEstadosFinales;
-    String gSSimboloInicial;
+    String[] gASCadenas;
+    HashMap<Integer,String> gobjHashMapAlfeboTransiciones;
+    HashMap<Integer, String> gobjHashMapAlfeboEstados;
+    String  gstrSimboloInicial;
+    HashMap<Integer, String> gobjHashMapEstadosFinales;
 
     /**
      * Validacion
      * Constructor que inicializa los parámetros que debe validar el automata
-     * @param lSCadenas Corresponde a la funcion de transicion
+     * @param lASCadenas Corresponde a la funcion de transicion
      * @param objHashMapAlfeboEstados Corresponde al alfabeto de estados
      * @param objHashMapAlfeboTransiciones Corresponde al alfabeto de transiciones
      * @param objHashMapEstadosFinales Corresponde al alfabeto de estados finales
-     * @param gSSimboloInicial Corresponde al simbolo inicial
+     * @param strSimboloInicial Corresponde al simbolo inicial
      */
-    public Validation(String[] lSCadenas, HashMap<Integer, String> objHashMapAlfeboEstados, HashMap<Integer, String> objHashMapAlfeboTransiciones, HashMap<Integer, String> objHashMapEstadosFinales, String gSSimboloInicial)
+    public Validation(String[] lASCadenas, HashMap<Integer, String> objHashMapAlfeboEstados, HashMap<Integer, String> objHashMapAlfeboTransiciones, HashMap<Integer, String> objHashMapEstadosFinales, String strSimboloInicial)
     {
-        this.gSCadenas = lSCadenas;
-        this.objHashMapAlfeboEstados = objHashMapAlfeboEstados;
-        this.objHashMapAlfeboTransiciones = objHashMapAlfeboTransiciones;
-        this.objHashMapEstadosFinales = objHashMapEstadosFinales;
-        this.gSSimboloInicial = gSSimboloInicial;
+        this.gASCadenas = lASCadenas;
+        this.gobjHashMapAlfeboEstados = objHashMapAlfeboEstados;
+        this.gobjHashMapAlfeboTransiciones = objHashMapAlfeboTransiciones;
+        this.gobjHashMapEstadosFinales = objHashMapEstadosFinales;
+        this.gstrSimboloInicial = strSimboloInicial;
     }
     
     /**
@@ -39,34 +43,38 @@ public class Validation
      */
     public boolean validacionIntegral()
     {
-        for (int lEi = 0; lEi < gSCadenas.length; lEi++)
+        for (int lEi = 0; lEi < gASCadenas.length; lEi++)
         {
-            switch (lEi)
+            for (int lEIteraInterno = 0; lEIteraInterno < gASCadenas[lEi].split(",").length; lEIteraInterno++)
             {
-                case 0:
-                case 2:
-                    if (validaEstados(lEi))
-                    {
+                switch (lEIteraInterno)
+                {
+                    case 0:
+                    case 2:
+                        if (validaEstados(lEIteraInterno))
+                        {
 //                        System.out.println("El automata tiene los estados CORRECTOS");
-                    } else
-                    {
-                        System.out.println("Estado NO contemplado en el alfabeto de estados");
-                        return false;
-                    }
-                    break;
-                case 1:
-                case 3:
-                    if (validaTransiciones(lEi))
-                    {
+                        } else
+                        {
+                            System.out.println("Estado NO contemplado en el alfabeto de estados");
+                            return false;
+                        }
+                        break;
+                    case 1:
+//                    case 3:
+                        if (validaTransiciones(lEIteraInterno))
+                        {
 //                        System.out.println("El automata tiene los transiciones CORRECTAS");
-                    } else
-                    {
-                        System.out.println("Transicion NO contemplado en el alfabeto de transiciones");
-                        return false;
-                    }
+                        } else
+                        {
+                            System.out.println("Transicion NO contemplado en el alfabeto de transiciones");
+                            return false;
+                        }
+                        break;
+                }
             }
         }
-        
+
         if (validaEstadoInicial())
         {
 //            System.out.println("Estado inicial correcto");
@@ -110,20 +118,21 @@ public class Validation
     {
         int lEIncrementos = 0;
         String lSCadenaCompleta = "";
-        for (int lEi = 0; lEi < gSCadenas.length; lEi++)
+        for (int lEi = 0; lEi < gASCadenas.length; lEi++)
         {
-            lSCadenaCompleta += gSCadenas[lEi].replace("[", "").replace("]", "").split(",")[0] + gSCadenas[lEi].replace("[", "").replace("]", "").split(",")[2];
+            lSCadenaCompleta += gASCadenas[lEi].replace("[", "").replace("]", "").split(",")[0] + gASCadenas[lEi].replace("[", "").replace("]", "").split(",")[2];
         }
 
-        for (Map.Entry<Integer, String> objEntry : objHashMapEstadosFinales.entrySet())
+        Object[] lAOConjunto = gobjHashMapEstadosFinales.values().toArray();
+        for (int i = 0; i < lAOConjunto.length; i++)
         {
-            if (lSCadenaCompleta.contains(objEntry.getValue()))
+            if (lSCadenaCompleta.contains(String.valueOf(lAOConjunto[i]).trim()))
             {
                 lEIncrementos++;
             }
         }
-        
-        return lEIncrementos == objHashMapEstadosFinales.size();
+                
+        return lEIncrementos == gobjHashMapEstadosFinales.size();
     }
     
     /**
@@ -133,10 +142,12 @@ public class Validation
      */
     public boolean validaEstadoInicialEnTransiciones()
     {
-        for (int lEi = 0; lEi < gSCadenas.length; lEi++)
+        for (int lEi = 0; lEi < gASCadenas.length; lEi++)
         {
-            String[] lSElementos = gSCadenas[lEi].replace("[", "").replace("]", "").split(",");
-            if (lSElementos[0].trim().equals(gSSimboloInicial.trim()))
+            String[] lASElementos = gASCadenas[lEi].replace("[", "").replace("]", "").split(",");
+            Set<Integer> objTreeSetInicial = new TreeSet<>();
+            objTreeSetInicial.add(Integer.parseInt(lASElementos[0].trim()));
+            if (objTreeSetInicial.contains(Integer.parseInt(gstrSimboloInicial)))
             {
                 return true;
             }
@@ -151,7 +162,7 @@ public class Validation
      */
     public boolean validaEstadoInicial()
     {
-        if (objHashMapAlfeboEstados.containsValue(gSSimboloInicial))
+        if (gobjHashMapAlfeboEstados.containsValue(gstrSimboloInicial))
         {
             return true;
         }
@@ -165,12 +176,16 @@ public class Validation
      */
     public boolean validaEstadosFinales()
     {
-        for (Map.Entry<Integer, String> entry : objHashMapEstadosFinales.entrySet())
+        Object[] lAOFinales = gobjHashMapEstadosFinales.values().toArray();
+        for (int lEItera = 0; lEItera < lAOFinales.length; lEItera++)
         {
-            if (!objHashMapAlfeboEstados.containsValue(entry.getValue()))
+//            Set<Integer> objTreeSetEstadoFinal = new TreeSet<>();
+//            objTreeSetEstadoFinal.add(Integer.parseInt(String.valueOf(lAOFinales[lEItera]).trim()));
+            if (!gobjHashMapAlfeboEstados.containsValue(String.valueOf(lAOFinales[lEItera]).trim()))
             {
                 return false;
             }
+            
         }
         return true;
     }
@@ -183,13 +198,20 @@ public class Validation
      */
     public boolean validaEstados(int lEIndice)
     {
-        for (int lEi = 0; lEi < gSCadenas.length; lEi++)
+        for (int lEi = 0; lEi < gASCadenas.length; lEi++)
         {
-            String lSElemento = gSCadenas[lEi].split(",")[lEIndice].replace("[", "").replace("]", "").trim();
-            if (!objHashMapAlfeboEstados.containsValue(lSElemento.trim()))
+            try
             {
-                System.out.println( "Metodo validaEstados FAIL    El elemento: " + lSElemento + " de la cadena: " + gSCadenas[lEi]);
-                return false;
+//                Set<Integer> objTreeSetAux = new TreeSet<>();
+//                objTreeSetAux.add(Integer.parseInt(gASCadenas[lEi].split(",")[lEIndice].replace("[", "").replace("]", "").trim()));
+                if (!gobjHashMapAlfeboEstados.containsValue(gASCadenas[lEi].split(",")[lEIndice].replace("[", "").replace("]", "").trim()))
+                {
+                    return false;
+                }
+            } catch (Exception objException)
+            {
+                System.out.println("Los estados de la función de transición no corresponden al alfabeto de estados");
+                System.exit(0);
             }
         }
         return true;
@@ -203,12 +225,10 @@ public class Validation
      */
     public boolean validaTransiciones(int lEIndice)
     {
-        for (int lEi = 0; lEi < gSCadenas.length; lEi++)
+        for (int lEi = 0; lEi < gASCadenas.length; lEi++)
         {
-//            String lSElemento = gSCadenas[lEi].split(",")[lEIndice].trim();
-            String lSElemento = gSCadenas[lEi].split(",")[lEIndice].replace("[", "").replace("]", "").trim();  
-            System.out.println("CadenaDeTransicion: " + lEi + "  ElementoString de la cadena: " + lEIndice);
-            if (!objHashMapAlfeboTransiciones.containsValue(lSElemento.trim()))
+            String lSElemento = gASCadenas[lEi].split(",")[lEIndice].trim();
+            if (!gobjHashMapAlfeboTransiciones.containsValue(lSElemento.trim()))
             {
                 return false;
             }
