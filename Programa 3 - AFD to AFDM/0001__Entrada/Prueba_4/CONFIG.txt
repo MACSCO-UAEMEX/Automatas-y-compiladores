@@ -24,4 +24,4 @@
 #Rutas de trabajo
 
 -FWORK		0001__Entrada\Prueba_4
--FSALIDA	0002__Salida\0004__Pruebas_4
+-FSALIDA	0002__Salida\0004__Salidas_4
