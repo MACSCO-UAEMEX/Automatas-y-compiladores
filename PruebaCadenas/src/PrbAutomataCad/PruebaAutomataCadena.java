@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PrbAutomataCad;
 
 import Funciones.MyListArgs;
@@ -126,17 +121,17 @@ public class PruebaAutomataCadena {
         String edoA = this.q;
         ArrayList<Automata> aL_Au;
         Integer cont = 0, r1 = 0, r2;
-        String subcad = cad.replace(" ", "");
-        while (r1 < subcad.length()) {//#Recorrido por cada una de las subcadenas a validar
+        String subcad[] = cad.split(" ");
+        for (String sc : subcad) {//#Recorrido por cada una de las subcadenas a validar
             aL_Au = m.get(edoA);
             if (aL_Au == null) {
                 return 1 == 0;
             }
             for (Automata auVal : aL_Au) {
-                r2 = auVal.getTransicion().length();
+                //r2 = auVal.getTransicion().length();
                 try {
-                    if (subcad.substring(r1, r2 + r1).equals(auVal.getTransicion())) {
-                        r1 = r2 + r1;
+                    if (sc.equals(auVal.getTransicion())) {
+                        //r1 = r2 + r1;
                         edoA = auVal.getEdosig();//#Colocar el siguiente estado como estado actual
                         cont = 0;//#Reiniciar el contador de posibles transiciones no ejecutadas
                         break;
