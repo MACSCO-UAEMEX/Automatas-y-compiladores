@@ -1,32 +1,47 @@
-========================
-BUILD OUTPUT DESCRIPTION
-========================
+﻿_________________________________________________________________________________________________
+               0002__AFND_To_AFD     Autómata finito No Determinista a Autómata Finito Determinista
+                                    MCC 4 generacion  
+                                          >--ö--< 
+https://github.com/MACSCO-UAEMEX/Automatas-y-compiladores/tree/master/Programa%203%20-%20AFD%20to%20AFDM
+_________________________________________________________________________________________________
 
-When you build an Java application project that has a main class, the IDE
-automatically copies all of the JAR
-files on the projects classpath to your projects dist/lib folder. The IDE
-also adds each of the JAR files to the Class-Path element in the application
-JAR files manifest file (MANIFEST.MF).
 
-To run the project from the command line, go to the dist folder and
-type the following:
+Este programa convierte un autómata finito no determinista en autómata finito determinista.
+En este programa se verifican las transiciones de cada estado, los estados que tienen mas de
+una transicion con el mismo alfabeto se unen y son retiquetados, estos estados pasan a formar
+un nuevo estado y esto es repetido hasta que no existan mas uniones de estados. Los estados únicos
+que van con el mismo alfabeto a mas de un estado son eliminados.
 
-java -jar "AFNDtoAFD.jar" 
+________________________________________________________________________________
+                                                                            
+SINTAXIS:                                                                   
 
-To distribute this project, zip up the dist folder (including the lib folder)
-and distribute the ZIP file.
+#ELEMENTOS NECESARIOS PARA EL AUTOMATA
 
-Notes:
+# Q es igual al conjunto de estados del automata, los estados van separados por coma
 
-* If two JAR files on the project classpath have the same name, only the first
-JAR file is copied to the lib folder.
-* Only JAR files are copied to the lib folder.
-If the classpath contains other types of files or folders, these files (folders)
-are not copied.
-* If a library on the projects classpath also has a Class-Path element
-specified in the manifest,the content of the Class-Path element has to be on
-the projects runtime path.
-* To set a main class in a standard Java project, right-click the project node
-in the Projects window and choose Properties. Then click Run and enter the
-class name in the Main Class field. Alternatively, you can manually type the
-class name in the manifest Main-Class element.
+-Q	"Estados.txt"
+
+# A es el alfabeto que corresponde al automata
+
+-A	"AlfeboEsp.txt"
+
+# EI es el estado incial que corresponde al automata, pertenece a Q
+
+-EI	0
+
+# F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
+
+-F	"Finales.txt"
+
+
+# T corresponde a la funcion de transicion, el estado X con el elemento del alfabeto Y hacia que estado va
+# se define por [estado, alfabeto, estado] (Tabulador) [estado, alfabeto, estado]
+
+-T	"FT.txt"
+
+#Rutas de trabajo
+
+-FWORK		"0001__Entrada\prueba_1"
+-FSALIDA	"0002__Salida"
+
