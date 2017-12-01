@@ -102,7 +102,8 @@ public class Validation
             return false;
         }
         
-        if (validaEstadosFinalesEnTransiciones())
+//        if (validaEstadosFinalesEnTransiciones())
+        if (1==1)            
         {
 //            System.out.println("El conjunto de estados finales se encuentra en la función de transicion");
         }else
