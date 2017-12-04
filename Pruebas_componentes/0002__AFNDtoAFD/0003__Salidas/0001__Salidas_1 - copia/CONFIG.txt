@@ -10,7 +10,7 @@
  
 # EI es el estado incial que corresponde al automata, pertenece a Q
  
--EI 	0
+-EI 	 "0"
  
 # F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
  
