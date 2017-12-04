@@ -66,6 +66,16 @@ EXIT /B 0
 :: FUNCTION to create a tree of RegularExpressionTest kind directories
 :crearArbolExpReg
 ECHO Crea el arbol de Directorios para Pruebas de Expresiones Regulares %*
+ECHO.
+MD Pruebas_ExpReg_%*
+CD Pruebas_ExpReg_%*
+MD In_ExpReg_To_Automata
+MD Out_AFND_TO_AFD
+MD Out_EdosAlcanzables
+MD Out_AFD_TO_AFDM
+MD Out_PruebaCadenas
+MD Out_Turing
+DIR
 
 EXIT /B 0
 
@@ -73,6 +83,16 @@ EXIT /B 0
 :: FUNCTION to create a tree of AutomataTest kind directories
 :crearArbolAutomata
 ECHO Crea el arbol de Directorios para Pruebas de Automatas %*
+ECHO.
+MD Pruebas_Automatas_%*
+CD Pruebas_Automatas_%*
+MD In_Automata
+MD Out_AFND_TO_AFD
+MD Out_EdosAlcanzables
+MD Out_AFD_TO_AFDM
+MD Out_PruebaCadenas
+MD Out_Turing
+DIR
 
 EXIT /B 0
 
