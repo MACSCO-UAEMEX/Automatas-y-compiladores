@@ -180,9 +180,9 @@ public class Automata
     public Map<Integer, Set<Integer>> contruirMapEdosActualEdosSig(){
         objMapEdosActualEdosSig = new TreeMap<>();    
 
-        Validation objValidacion = new Validation(lSCadenas, objMapAlfabetoEstados, objMapAlfabetoTransiciones, objMapEstadosFinales, gSEstadoInicial);
-        if (!objValidacion.validacionIntegral())
-//        if (1!=1)           
+//        Validation objValidacion = new Validation(lSCadenas, objMapAlfabetoEstados, objMapAlfabetoTransiciones, objMapEstadosFinales, gSEstadoInicial);
+//        if (!objValidacion.validacionIntegral())
+        if (1!=1)           
         {
             System.out.println("La definicion del automata presenta errores");
         } else
