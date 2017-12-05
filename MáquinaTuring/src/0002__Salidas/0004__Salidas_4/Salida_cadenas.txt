@@ -1,0 +1,10 @@
+[d d d d d d]	false
+[d d d d d c c]	true
+[d d d c]	false
+[d d c a a]	true
+[d d d d c a a f j f j]	false
+[d d c c j c j c]	true
+[d d d d d c a]	false
+[d d c a a f j f]	true
+[d d d c a a c a]	false
+[d d d d c a a c a a c j]	true

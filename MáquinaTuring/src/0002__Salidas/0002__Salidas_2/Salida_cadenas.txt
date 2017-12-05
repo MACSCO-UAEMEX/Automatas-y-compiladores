@@ -1,0 +1,10 @@
+[Juan es alto]	true
+[Juan Carlos]	false
+[Juan Carlos escribio una novela rusa]	true
+[Juan Carlos escribio una]	false
+[Juan Carlos escribio varios poemas]	true
+[Juan Carlos escribio varios poemas historicos]	true
+[Juan Carlos escribio varios]	false
+[Juan Carlos juega alto]	true
+[Juan Carlos escribio]	false
+[Juan es]	false
