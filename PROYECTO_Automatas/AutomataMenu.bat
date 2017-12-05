@@ -109,7 +109,7 @@ echo MAQUINA DE TURING
 echo.
 echo -FWORK "%archivo%\In_Automata" >> "%archivo%\Out_Turing\CONFIG.txt"
 echo -OUT "%archivo%\Out_Turing" >> "%archivo%\Out_Turing\CONFIG.txt"
-java -jar BIBLIOTECA_COMPONENTES/Turing.jar -CONFIG "%CD%\%archivo%\Out_Turing\CONFIG.txt"
+java -jar BIBLIOTECA_COMPONENTES/MaquinaTuring.jar -CONFIG "%CD%\%archivo%\Out_Turing\CONFIG.txt"
 echo.
 
 echo Maquina de Turing completado
@@ -144,7 +144,7 @@ echo Cadenas validas completado
 pause
 echo -FWORK "%archivo%\In_Automata" >> "%archivo%\Out_Turing\CONFIG.txt"
 echo -OUT "%archivo%\Out_Turing" >> "%archivo%\Out_Turing\CONFIG.txt"
-java -jar BIBLIOTECA_COMPONENTES/Turing.jar -CONFIG "%CD%\%archivo%\Out_Turing\CONFIG.txt"
+java -jar BIBLIOTECA_COMPONENTES/MaquinaTuring.jar -CONFIG "%CD%\%archivo%\Out_Turing\CONFIG.txt"
 echo Maquina de Turing completado
 echo.
 pause
@@ -170,14 +170,14 @@ echo -FSALIDA "%archivo%\Out_AFD_TO_AFDM" >> "%archivo%\Out_AFD_TO_AFDM\CONFIG.t
 java -jar BIBLIOTECA_COMPONENTES/AFD_To_AFDM.jar -CONFIG "%CD%\%archivo%\Out_AFD_TO_AFDM\CONFIG.txt"
 echo Minimizacion completada
 pause
-echo -FWORK "%archivo%\AFD_To_AFDM" >> "%archivo%\Out_PruebaCadenas\CONFIG.txt"
+echo -FWORK "%archivo%\Out_AFD_TO_AFDM" >> "%archivo%\Out_PruebaCadenas\CONFIG.txt"
 echo -OUT "%archivo%\Out_PruebaCadenas" >> "%archivo%\Out_PruebaCadenas\CONFIG.txt"
 java -jar BIBLIOTECA_COMPONENTES/PruebaCadenas.jar -CONFIG "%CD%\%archivo%\Out_PruebaCadenas\CONFIG.txt"
 echo Cadenas validas completado
 pause
-echo -FWORK "%archivo%\PruebaCadenas" >> "%archivo%\Out_Turing\CONFIG.txt"
+echo -FWORK "%archivo%\Out_PruebaCadenas" >> "%archivo%\Out_Turing\CONFIG.txt"
 echo -OUT "%archivo%\Out_Turing" >> "%archivo%\Out_Turing\CONFIG.txt"
-java -jar BIBLIOTECA_COMPONENTES/Turing.jar -CONFIG "%CD%\%archivo%\Out_Turing\CONFIG.txt"
+java -jar BIBLIOTECA_COMPONENTES/MaquinaTuring.jar -CONFIG "%CD%\%archivo%\Out_Turing\CONFIG.txt"
 echo Maquina de Turing completado
 echo.
 pause
