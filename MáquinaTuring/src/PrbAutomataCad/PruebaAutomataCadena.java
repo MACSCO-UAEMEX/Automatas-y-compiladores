@@ -17,7 +17,6 @@ public class PruebaAutomataCadena {
 
     public String Q, A, R, q, B, F, T, OUT, CAD, FWORK;
     public TreeMap<String, String> cinta;
-    Character c = 0x03B2;
 
     public PruebaAutomataCadena(String[] args) {
         // TODO code application logic here
@@ -28,14 +27,14 @@ public class PruebaAutomataCadena {
         if (!ConfigFile.equals("")) {
             Param.AddArgsFromFile(ConfigFile);
         }//fin if
-        String Sintaxis = "-Q:str -A:str [-R:str] [-B:str] -EI:str  -F:str -T:str -OUT:str -CAD:str -FWORK:str";
+        String Sintaxis = "-Q:str -A:str [-R:str -B:str] -EI:str  -F:str -T:str -OUT:str -CAD:str -FWORK:str";
         MySintaxis Review = new MySintaxis(Sintaxis, Param);
         //PARAMETROS FORZOSOS                  
         Q = Param.ValueArgsAsString("-Q", "");
         A = Param.ValueArgsAsString("-A", "");
         R = Param.ValueArgsAsString("-R", "");
         q = Param.ValueArgsAsString("-EI", "");
-        B = Param.ValueArgsAsString("-B", c.toString());
+        B = Param.ValueArgsAsString("-B", "");
         F = Param.ValueArgsAsString("-F", "");
         T = Param.ValueArgsAsString("-T", "");
         OUT = Param.ValueArgsAsString("-OUT", "");
@@ -74,6 +73,7 @@ public class PruebaAutomataCadena {
             map_Au.put(ctrEdos, AL);
             //#Fin de almacenaje de transiciones del automata
             String lSSalida = "", cd, strcinta;
+            Character c = 0x03B2;
 
             if (ValidarAlfabeto(aL_Alt, new ManejoArchivos().Read_Text_File_NoNull(FWORK + "/" + A))) {
                 for (String str : CAD.split(",")) {//Comienza el recorrido de cada una de las cadenas a validar
@@ -85,7 +85,7 @@ public class PruebaAutomataCadena {
                         Map.Entry me = (Map.Entry) it.next();
                         strcinta += me.getValue() + " ";
                     }
-                    strcinta = strcinta.trim() + "]";
+                    strcinta = strcinta.trim().replace("-1", c.toString()) + "]";
                     lSSalida += "Cadena original\r\n" + cd + "\r\nCadena de la cinta\r\n" + strcinta + "\r\n\r\n";
                     //#Impresión de cadena válida o no mediante el método de validación
                 }
@@ -134,11 +134,11 @@ public class PruebaAutomataCadena {
         String subcad[] = cad.split(" ");
         a = subcad.length;
         cinta = new TreeMap<>();
-        cinta.put("-1", B);
+        cinta.put("-1", "-1");
         for (i = 0; i < subcad.length; i++) {
             cinta.put(i.toString(), subcad[i]);
         }
-        cinta.put(a.toString(), B);
+        cinta.put(a.toString(), "-1");
         //for (String sc : subcad) {//#Recorrido por cada una de las subcadenas a validar
         while (true) {
             aL_Au = m.get(edoA);

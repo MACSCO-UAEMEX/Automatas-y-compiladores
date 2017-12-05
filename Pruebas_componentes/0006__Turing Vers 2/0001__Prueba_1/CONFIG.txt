@@ -21,10 +21,6 @@
 
 -T	"FT.txt"
 
-# B caracter de blanco de la cinta de la máquina de Turing
-
--B	-1
-
 #Rutas de trabajo
 
 -OUT	"0001__Prueba_1\0002__Salidas"
