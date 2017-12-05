@@ -1,0 +1,10 @@
+a,0,b,X,d
+b,Y,b,Y,d
+b,0,b,0,d
+b,1,c,Y,i
+c,Y,c,Y,i
+c,0,c,0,i
+c,X,a,X,d
+a,Y,d,Y,d
+d,Y,d,Y,d
+d,-1,e,-1,d

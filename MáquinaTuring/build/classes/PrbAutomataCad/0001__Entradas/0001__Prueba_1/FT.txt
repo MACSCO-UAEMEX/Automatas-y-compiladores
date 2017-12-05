@@ -1,0 +1,12 @@
+0,Lopez,1
+1,a,3
+3,a,3
+3,Hernandez,4
+4,y,5
+
+4,es,8
+8,bueno,9
+5,Garcia,6
+6,chaparro,10
+6,o,7
+7,Fernandez,0

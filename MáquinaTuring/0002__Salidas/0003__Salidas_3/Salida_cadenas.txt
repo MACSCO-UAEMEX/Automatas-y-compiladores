@@ -1,0 +1,10 @@
+[o r i n]	true
+[o r i n o]	false
+[o o l o]	true
+[o r i n o l a]	false
+[o l a t]	true
+[g o g o g]	false
+[o o o t g o]	true
+[o r i]	false
+[o r i n o t]	true
+[o o l t o r i n g]	false
