@@ -78,12 +78,11 @@ MD 05_Out_AFD_TO_AFDM
 MD 06_Out_PruebaCadenas
 MD 07_Out_Turing
 DIR
+
 COPY ..\Biblioteca_bat\Correr_coponentes_ExpReg.bat
-SET file=Cadena.txt
-IF EXIST "%file%" DELETE /Q %file% >NUL
-ECHO. > %file%
 CD
 ::CALL %CARP%\Correr_coponentes_ExpReg.bat %CARP
+
 EXIT /B 0
 
 
@@ -101,11 +100,17 @@ MD 04_Out_AFD_TO_AFDM
 MD 05_Out_PruebaCadenas
 MD 06_Out_Turing
 DIR
+
 COPY ..\Biblioteca_bat\Correr_coponentes.bat
 CD
 ::CALL %CARP%\Correr_coponentes.bat %CARP
+
 EXIT /B 0
 
 
+
+::MD Prueba_ExpReg001
+
+:: java -jar EstadosAlcanzables.jar -CONFIG "%CD%\Prueba_EdosAlcanzables/Input_1/CONFIG.txt"
 
 

@@ -65,47 +65,47 @@ EXIT /B 0
 
 :: FUNCTION to create a tree of RegularExpressionTest kind directories
 :crearArbolExpReg
-ECHO Creando el arbol de Directorios para Pruebas de Expresiones Regulares %*
+ECHO Crea el arbol de Directorios para Pruebas de Expresiones Regulares %*
 ECHO.
-SET CARP=Pruebas_ExpReg_%*
-MD %CARP%
-CD %CARP%
-MD 01_In_ExpReg_To_Automata
-MD 02_Out_AutomataND
-MD 03_Out_AFND_TO_AFD
-MD 04_Out_EdosAlcanzables
-MD 05_Out_AFD_TO_AFDM
-MD 06_Out_PruebaCadenas
-MD 07_Out_Turing
+MD Pruebas_ExpReg_%*
+CD Pruebas_ExpReg_%*
+MD In_ExpReg_To_Automata
+MD Out_AFND_TO_AFD
+MD Out_EdosAlcanzables
+MD Out_AFD_TO_AFDM
+MD Out_PruebaCadenas
+MD Out_Turing
 DIR
-COPY ..\Biblioteca_bat\Correr_coponentes_ExpReg.bat
-SET file=Cadena.txt
-IF EXIST "%file%" DELETE /Q %file% >NUL
-ECHO. > %file%
-CD
-::CALL %CARP%\Correr_coponentes_ExpReg.bat %CARP
+
 EXIT /B 0
 
 
 :: FUNCTION to create a tree of AutomataTest kind directories
 :crearArbolAutomata
-ECHO Creando el arbol de Directorios para Pruebas de Automatas %*
+ECHO Crea el arbol de Directorios para Pruebas de Automatas %*
 ECHO.
-SET CARP=Pruebas_Automatas_%*
-MD %CARP%
-CD %CARP%
-MD 01_In_Automata
-MD 02_Out_AFND_TO_AFD
-MD 03_Out_EdosAlcanzables
-MD 04_Out_AFD_TO_AFDM
-MD 05_Out_PruebaCadenas
-MD 06_Out_Turing
+MD Pruebas_Automatas_%*
+CD Pruebas_Automatas_%*
+MD In_Automata
+Copy "C:\Automatas-y-compiladores-master\PROYECTO_Automatas\Config.txt" "In_Automata\Config.txt"
+MD Out_AFND_TO_AFD
+Copy "C:\Automatas-y-compiladores-master\PROYECTO_Automatas\Config.txt" "Out_AFND_TO_AFD\Config.txt"
+MD Out_EdosAlcanzables
+Copy "C:\Automatas-y-compiladores-master\PROYECTO_Automatas\Config.txt" "Out_EdosAlcanzables\Config.txt"
+MD Out_AFD_TO_AFDM
+Copy "C:\Automatas-y-compiladores-master\PROYECTO_Automatas\Config.txt" "Out_AFD_TO_AFDM\Config.txt"
+MD Out_PruebaCadenas
+Copy "C:\Automatas-y-compiladores-master\PROYECTO_Automatas\Config.txt" "Out_PruebaCadenas\Config.txt"
+MD Out_Turing
+Copy "C:\Automatas-y-compiladores-master\PROYECTO_Automatas\Config.txt" "Out_Turing\Config.txt"
 DIR
-COPY ..\Biblioteca_bat\Correr_coponentes.bat
-CD
-::CALL %CARP%\Correr_coponentes.bat %CARP
+
 EXIT /B 0
 
 
+
+::MD Prueba_ExpReg001
+
+:: java -jar EstadosAlcanzables.jar -CONFIG "%CD%\Prueba_EdosAlcanzables/Input_1/CONFIG.txt"
 
 
