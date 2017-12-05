@@ -1,0 +1,20 @@
+Cadena original
+[0 0 0 0 1 1 1 1] true
+Cadena de la cinta
+[? X X X X Y Y Y Y ?]
+
+Cadena original
+[0 0 0 1 1 1] true
+Cadena de la cinta
+[? X X X Y Y Y ?]
+
+Cadena original
+[0 0 1 1] true
+Cadena de la cinta
+[? X X Y Y ?]
+
+Cadena original
+[0 1 1] false
+Cadena de la cinta
+[? X Y 1 ?]
+

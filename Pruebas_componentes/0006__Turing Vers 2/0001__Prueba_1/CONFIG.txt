@@ -1,0 +1,30 @@
+﻿#ELEMENTOS NECESARIOS PARA EL AUTOMATA
+
+# Q es igual al conjunto de estados del automata, los estados van separados por coma
+
+-Q	"Estados.txt"
+
+# A es el alfabeto que corresponde al automata
+
+-A	"AlfeboEsp.txt"
+
+# EI es el estado incial que corresponde al automata, pertenece a Q
+
+-EI	a
+
+# F corresponde a los estados o estado final que corresponde al automata, pertenece a Q
+
+-F	"Finales.txt"
+
+
+# T corresponde a la funcion de transicion, el estado X con el elemento del alfabeto Y hacia que estado va
+
+-T	"FT.txt"
+
+#Rutas de trabajo
+
+-OUT	"0001__Prueba_1\0002__Salidas"
+
+-CAD "0 0 0 0 1 1 1 1, 0 0 0 1 1 1, 0 0 1 1, 0 1 1"
+
+-FWORK "0001__Prueba_1"
