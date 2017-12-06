@@ -23,7 +23,23 @@ ECHO.
 :: "Imprime la ubicacion actual"
 CD
 :: "Ejecuta los componentes"
-::CD ..\Biblioteca_Componentes\
+
+ECHO Elija de la siguiente lista los componentes que desea ejecutar, escriba los numeros separados por espacio: 
+ECHO.
+ECHO 1. AFND_TO_AFD
+ECHO 2. EdosAlcanzables
+ECHO 3. AFD_TO_AFDM
+ECHO 4. Prueba_ExpRegular
+ECHO 5. Turing
+SET /p steps=Steps: 
+ECHO.
+ECHO %steps%
+CALL :flujo "%teps%"
+
+
+
+
+
 DIR
 ECHO.
 ECHO Copie los archivos del automata a la carpeta: 01_In_Automata. Y verifique la ruta -FSALIDA del archivo de salida CONFIG
@@ -36,7 +52,7 @@ ECHO Verifique la ruta -FSALIDA del archivo de salida CONFIG
 ECHO.
 PAUSE
 
-java -jar ..\Biblioteca_Componentes\AFNDtoAFD.jar -CONFIG "01_In_Automata/CONFIG.txt"
+::java -jar ..\Biblioteca_Componentes\AFNDtoAFD.jar -CONFIG "01_In_Automata/CONFIG.txt"
 ECHO.
 ECHO Verifique la ruta -FSALIDA del archivo de salida CONFIG
 ECHO.
@@ -71,6 +87,18 @@ EXIT /B %ERRORLEVEL%
 
 :: *********************** Cuasi Functions ***************************
 
+
+:: FUNCTION to write to a log file and write to stdout
+:flujo
+ECHO %1
+ECHO %2
+ECHO %3
+ECHO %4
+ECHO %5
+::-FWORK "0002__Entradas\Pruebas_documento\Prueba_1"
+::-FSALIDA	"0003__Salidas\0001__Salidas_1"
+
+EXIT /B 0
 
 :: FUNCTION to write to a log file and write to stdout
 :tee

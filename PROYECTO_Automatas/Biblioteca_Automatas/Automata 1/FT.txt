@@ -1,0 +1,7 @@
+[A,a,A,a,d]
+[A,a,D,a,d]
+[A,a,C,a,d]
+[A,a,B,a,d]
+[B,a,C,a,d]
+[C,a,D,a,d]
+[C,a,A,a,d]

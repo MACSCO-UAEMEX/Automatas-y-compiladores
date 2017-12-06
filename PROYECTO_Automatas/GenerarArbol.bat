@@ -79,9 +79,12 @@ MD 06_Out_PruebaCadenas
 MD 07_Out_Turing
 DIR
 COPY ..\Biblioteca_bat\Correr_coponentes_ExpReg.bat
+COPY ..\CONFIG.txt
+
 SET file=Cadena.txt
 IF EXIST "%file%" DELETE /Q %file% >NUL
 ECHO. > %file%
+
 CD
 ::CALL %CARP%\Correr_coponentes_ExpReg.bat %CARP
 EXIT /B 0
@@ -102,10 +105,13 @@ MD 05_Out_PruebaCadenas
 MD 06_Out_Turing
 DIR
 COPY ..\Biblioteca_bat\Correr_coponentes.bat
+COPY ..\CONFIG.txt
+
+SET file=Cadena.txt
+IF EXIST "%file%" DELETE /Q %file% >NUL
+ECHO. > %file%
+
 CD
 ::CALL %CARP%\Correr_coponentes.bat %CARP
 EXIT /B 0
-
-
-
 
