@@ -13,7 +13,7 @@ public class Salida
 {
     TransformAFNDtoAFD gobjTransformAFNDtoAFD;
     String gSPathSalida, gSPathTrabajo, gSFuncionTransicion, gSAlfeboEstados, gSAlfeboTransiciones, gSEdosFinales;
-    Set<Integer> gobjTreeSetEstadoInicial;
+    Set<String> gobjTreeSetEstadoInicial;
 
     /**
      * Salida
@@ -120,7 +120,7 @@ public class Salida
     public void generaEstadosArchivoTexto()
     {
         String lSSalida = "";
-        for (Map.Entry<Integer, Set<Integer>> objEntry: gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados.entrySet())
+        for (Map.Entry<Integer, Set<String>> objEntry: gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados.entrySet())
         {
             lSSalida += objEntry.getKey() + ",";
         }
@@ -160,7 +160,7 @@ public class Salida
     public void generaArchivoFuncionTransicion()
     {
         String lSSalida = "";
-        for (Map.Entry<Integer, Set<Integer>> objEntryFT: gobjTransformAFNDtoAFD.gobjTreeMapMapaAutomata.entrySet())
+        for (Map.Entry<Integer, Set<String>> objEntryFT: gobjTransformAFNDtoAFD.gobjTreeMapMapaAutomata.entrySet())
         {
             String lSEstadoActual = String.valueOf(gobjTransformAFNDtoAFD.obtenerKeyEstado(gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados, gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados.get(gobjTransformAFNDtoAFD.obtenerCoordenadaEstado(objEntryFT.getKey(), gobjTransformAFNDtoAFD.gobjHashMapAlfabetoTransiciones.size()) -1)));
             String lSTransicion = gobjTransformAFNDtoAFD.gobjHashMapAlfabetoTransiciones.get(gobjTransformAFNDtoAFD.obtenerCoordenadaTransicion(objEntryFT.getKey(), gobjTransformAFNDtoAFD.gobjHashMapAlfabetoTransiciones.size()) -1);

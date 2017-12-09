@@ -14,8 +14,8 @@ public class Validation
 {
     String[] gASCadenas;
     HashMap<Integer,String> gobjHashMapAlfeboTransiciones;
-    TreeMap<Integer, Set<Integer>> gobjTreeMapAlfeboEstados;
-    Set<Integer> gobjTreeSetEstadosFinales, gobjTreeSetSimboloInicial;
+    TreeMap<Integer, Set<String>> gobjTreeMapAlfeboEstados;
+    Set<String> gobjTreeSetEstadosFinales, gobjTreeSetSimboloInicial;
 
     /**
      * Validacion
@@ -26,7 +26,7 @@ public class Validation
      * @param objHashMapEstadosFinales Corresponde al alfabeto de estados finales
      * @param objTreeSetSimboloInicial Corresponde al simbolo inicial
      */
-    public Validation(String[] lASCadenas, TreeMap<Integer, Set<Integer>> objTreeMapAlfeboEstados, HashMap<Integer, String> objHashMapAlfeboTransiciones, Set<Integer> objHashMapEstadosFinales, Set<Integer> objTreeSetSimboloInicial)
+    public Validation(String[] lASCadenas, TreeMap<Integer, Set<String>> objTreeMapAlfeboEstados, HashMap<Integer, String> objHashMapAlfeboTransiciones, Set<String> objHashMapEstadosFinales, Set<String> objTreeSetSimboloInicial)
     {
         this.gASCadenas = lASCadenas;
         this.gobjTreeMapAlfeboEstados = objTreeMapAlfeboEstados;
@@ -144,8 +144,8 @@ public class Validation
         for (int lEi = 0; lEi < gASCadenas.length; lEi++)
         {
             String[] lASElementos = gASCadenas[lEi].replace("[", "").replace("]", "").split(",");
-            Set<Integer> objTreeSetInicial = new TreeSet<>();
-            objTreeSetInicial.add(Integer.parseInt(lASElementos[0].trim()));
+            Set<String> objTreeSetInicial = new TreeSet<>();
+            objTreeSetInicial.add(lASElementos[0].trim());
             if (objTreeSetInicial.equals(gobjTreeSetSimboloInicial))
             {
                 return true;
@@ -178,8 +178,8 @@ public class Validation
         Object[] lAOFinales = gobjTreeSetEstadosFinales.toArray();
         for (int lEItera = 0; lEItera < lAOFinales.length; lEItera++)
         {
-            Set<Integer> objTreeSetEstadoFinal = new TreeSet<>();
-            objTreeSetEstadoFinal.add(Integer.parseInt(String.valueOf(lAOFinales[lEItera]).trim()));
+            Set<String> objTreeSetEstadoFinal = new TreeSet<>();
+            objTreeSetEstadoFinal.add(String.valueOf(lAOFinales[lEItera]).trim());
             if (!gobjTreeMapAlfeboEstados.containsValue(objTreeSetEstadoFinal))
             {
                 return false;
@@ -201,8 +201,8 @@ public class Validation
         {
             try
             {
-                Set<Integer> objTreeSetAux = new TreeSet<>();
-                objTreeSetAux.add(Integer.parseInt(gASCadenas[lEi].split(",")[lEIndice].replace("[", "").replace("]", "").trim()));
+                Set<String> objTreeSetAux = new TreeSet<>();
+                objTreeSetAux.add(gASCadenas[lEi].split(",")[lEIndice].replace("[", "").replace("]", "").trim());
                 if (!gobjTreeMapAlfeboEstados.containsValue(objTreeSetAux))
                 {
                     return false;

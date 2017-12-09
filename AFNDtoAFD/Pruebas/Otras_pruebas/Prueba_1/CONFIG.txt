@@ -22,6 +22,6 @@
 
 #Rutas de trabajo
 
--FWORK 		"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Pruebas\Otras_pruebas\Prueba_1"
+-FWORK 		"C:\Automatas-y-compiladores\AFNDtoAFD\Pruebas\Otras_pruebas\Prueba_1"
 
--FSALIDA 	"C:\Automatas-y-compiladores-MACSCO\AFNDtoAFD\Output"
+-FSALIDA 	"C:\Automatas-y-compiladores\AFNDtoAFD\Output"

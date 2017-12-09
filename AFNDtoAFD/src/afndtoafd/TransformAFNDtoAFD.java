@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -16,8 +17,10 @@ import java.util.TreeSet;
 public class TransformAFNDtoAFD
 {
     HashMap<Integer, String> gobjHashMapAlfabetoTransiciones;
-    TreeMap<Integer, Set<Integer>> gobjTreeMapMapaAutomata, gobjTreeMapAlfabetoEstados;
-    Set<Integer> objTreeSetNuevosFinales, gobjTreeSetEstadoInicial;
+    TreeMap<Integer, Set<String>> gobjTreeMapMapaAutomata;
+    TreeMap<Integer, Set<String>> gobjTreeMapAlfabetoEstados;
+    Set<String> gobjTreeSetEstadoInicial;
+    ArrayList<Set<String>> objTreeSetNuevosFinales;
 
     /**
      * TransformAFNDtoAFD 
@@ -29,7 +32,18 @@ public class TransformAFNDtoAFD
         this.gobjTreeSetEstadoInicial = objAutomataAnterior.gobjSetEstadoInicial;
         this.gobjTreeMapAlfabetoEstados = objAutomataAnterior.gobjTreeMapAlfabetoEstados;
         this.gobjHashMapAlfabetoTransiciones = objAutomataAnterior.gobjHashMapAlfabetoTransiciones;
-        this.objTreeSetNuevosFinales = objAutomataAnterior.gobjSetEstadosFinales;
+        this.objTreeSetNuevosFinales = new ArrayList<>();
+        Object[] lAOElementosCadena = objAutomataAnterior.gobjSetEstadosFinales.toArray();
+        System.out.println(objAutomataAnterior.gobjSetEstadosFinales);
+        for (int i = 0; i < lAOElementosCadena.length; i++)
+        {
+            Set<String> objSetFinales = new TreeSet<>();
+            objSetFinales.add(String.valueOf(lAOElementosCadena[i]).trim());
+            this.objTreeSetNuevosFinales.add(objSetFinales);
+        }
+        
+        
+
         this.gobjTreeMapMapaAutomata = objAutomataAnterior.gobjTreeMapAutomata;
     }
 
@@ -40,7 +54,7 @@ public class TransformAFNDtoAFD
      */
     public boolean validaAutomata()
     {
-        for (Map.Entry<Integer, Set<Integer>> objEntry : gobjTreeMapMapaAutomata.entrySet())
+        for (Map.Entry<Integer, Set<String>> objEntry : gobjTreeMapMapaAutomata.entrySet())
         {
             if (objEntry.getValue().size() > 1)
             {
@@ -60,20 +74,22 @@ public class TransformAFNDtoAFD
         do
         {
             lEValores = 0;
-            TreeMap<Integer, Set<Integer>> objTreeMapConjuntosCombinados = new TreeMap<>();
+            TreeMap<Integer, Set<String>> objTreeMapConjuntosCombinados = new TreeMap<>();
 
-            for (Map.Entry<Integer, Set<Integer>> objEntry : gobjTreeMapMapaAutomata.entrySet())
+            for (Map.Entry<Integer, Set<String>> objEntry : gobjTreeMapMapaAutomata.entrySet())
             {
                 if (!gobjTreeMapAlfabetoEstados.containsValue(objEntry.getValue()))
                 {
-                    gobjTreeMapAlfabetoEstados.put((gobjTreeMapAlfabetoEstados.lastKey() + 1), objEntry.getValue());
+                    Set<String> objStringsCadenas = new TreeSet<>();
+                    objStringsCadenas.add(String.valueOf(objEntry.getValue()));
+                    gobjTreeMapAlfabetoEstados.put((gobjTreeMapAlfabetoEstados.lastKey() + 1), objStringsCadenas);
                     objTreeMapConjuntosCombinados.put(objTreeMapConjuntosCombinados.size(), objEntry.getValue());
 
                 }
             }
 
             //Para recorrer los identificadores con estados repetidos
-            for (Map.Entry<Integer, Set<Integer>> objEntryConjuntos : objTreeMapConjuntosCombinados.entrySet())
+            for (Map.Entry<Integer, Set<String>> objEntryConjuntos : objTreeMapConjuntosCombinados.entrySet())
             {
                 TreeMap<Integer, ArrayList<Integer>> objTreeMapEstadosMapeados = new TreeMap<>();
                 //Para recorrer los estados dentro de cada identificador
@@ -85,12 +101,12 @@ public class TransformAFNDtoAFD
 //                System.out.println("Estado "+ lEEstado + " con indice inicial " + lEIndiceInicio + " hasta " + lEIndiceFinal);
                     ArrayList<Integer> objArrayListLista = new ArrayList<>();
                     //Para conocer si hay un elemento dentro de cada rango
-                    for (Map.Entry<Integer, Set<Integer>> objEntry : gobjTreeMapMapaAutomata.entrySet())
+                    for (Map.Entry<Integer, Set<String>> objEntry : gobjTreeMapMapaAutomata.entrySet())
                     {
                         if (objEntry.getKey() >= lEIndiceInicio && objEntry.getKey() <= lEIndiceFinal)
                         {
 //                        System.out.println("Clave " + objEntry.getKey()+ " con estados " + gobjTreeMapMapaAutomata.get(objEntry.getKey()).toString());
-                            objArrayListLista.add(objEntry.getKey());
+                            objArrayListLista.add(objEntry.getKey());                                                                               
                         }
                     }
                     objTreeMapEstadosMapeados.put(lEEstado, objArrayListLista);
@@ -104,12 +120,12 @@ public class TransformAFNDtoAFD
                         {
                             for (Map.Entry<Integer, ArrayList<Integer>> objEntryLocalidador1 : objTreeMapEstadosMapeados.entrySet())
                             {
-                                if (objEntryLocalidador.getKey() != objEntryLocalidador1.getKey())
+                                if (!Objects.equals(objEntryLocalidador.getKey(), objEntryLocalidador1.getKey()))
                                 {
                                     int lEIdentificadorLocalizado = obtenerIdentificador(objEntryLocalidador1.getKey(), gobjHashMapAlfabetoTransiciones.size(), obtenerCoordenadaTransicion(objEntryLocalidador.getValue().get(lEIteraInterno), gobjHashMapAlfabetoTransiciones.size()) - 1);
                                     int lEIdentificadorNuevo = obtenerIdentificador(obtenerKeyEstado(gobjTreeMapAlfabetoEstados, objEntryConjuntos.getValue()), gobjHashMapAlfabetoTransiciones.size(), obtenerCoordenadaTransicion(objEntryLocalidador.getValue().get(lEIteraInterno), gobjHashMapAlfabetoTransiciones.size()) - 1);
 
-                                    Set<Integer> objTreeSetAuxiliar = new TreeSet<>();
+                                    Set<String> objTreeSetAuxiliar = new TreeSet<>();
                                     if (gobjTreeMapMapaAutomata.containsKey(lEIdentificadorNuevo)) //Si el mapa contiene el identificador nuevo
                                     {
                                         objTreeSetAuxiliar.addAll(gobjTreeMapMapaAutomata.get(lEIdentificadorNuevo));
@@ -130,14 +146,14 @@ public class TransformAFNDtoAFD
 
            System.out.println("*************************************");
 
-            for (Map.Entry<Integer, Set<Integer>> objEntry : gobjTreeMapMapaAutomata.entrySet())
+            for (Map.Entry<Integer, Set<String>> objEntry : gobjTreeMapMapaAutomata.entrySet())
             {
                 System.out.println("Clave " + objEntry.getKey());
                 System.out.println("Con estados " + objEntry.getValue().toString());
             }
             
             
-            for (Map.Entry<Integer, Set<Integer>> objEntry : gobjTreeMapMapaAutomata.entrySet())
+            for (Map.Entry<Integer, Set<String>> objEntry : gobjTreeMapMapaAutomata.entrySet())
             {
                 if (gobjTreeMapAlfabetoEstados.containsValue(objEntry.getValue()))
                 {
@@ -146,22 +162,22 @@ public class TransformAFNDtoAFD
             }
         } while (lEValores != gobjTreeMapMapaAutomata.size());
 
-        for (Map.Entry<Integer, Set<Integer>> objEntryUno : gobjTreeMapMapaAutomata.entrySet())
-        {
-            for (Map.Entry<Integer, Set<Integer>> objEntryDos : gobjTreeMapAlfabetoEstados.entrySet())
-            {
-                if (objEntryUno.getValue().equals(objEntryDos.getValue()))
-                {
-                    Set<Integer> objTreeSetAux = new TreeSet<>();
-                    objTreeSetAux.add(objEntryDos.getKey());
-                    gobjTreeMapMapaAutomata.put(objEntryUno.getKey(), objTreeSetAux);
-                }
-            }
-        }
+//////////        for (Map.Entry<Integer, Set<String>> objEntryUno : gobjTreeMapMapaAutomata.entrySet())
+//////////        {
+//////////            for (Map.Entry<Integer, Set<String>> objEntryDos : gobjTreeMapAlfabetoEstados.entrySet())
+//////////            {
+//////////                if (objEntryUno.getValue().equals(objEntryDos.getValue()))
+//////////                {
+//////////                    Set<String> objTreeSetAux = new TreeSet<>();
+//////////                    objTreeSetAux.add(String.valueOf(objEntryDos.getKey()));                                                                                    //CAMBIAR ESTA LINEA
+//////////                    gobjTreeMapMapaAutomata.put(objEntryUno.getKey(), objTreeSetAux);
+//////////                }
+//////////            }
+//////////        }
 
         System.out.println("*************************************");
 
-        for (Map.Entry<Integer, Set<Integer>> objEntry : gobjTreeMapMapaAutomata.entrySet())
+        for (Map.Entry<Integer, Set<String>> objEntry : gobjTreeMapMapaAutomata.entrySet())
         {
             System.out.println("Clave " + objEntry.getKey());
             System.out.println("Con estados " + objEntry.getValue().toString());
@@ -176,38 +192,32 @@ public class TransformAFNDtoAFD
      * @param objTreeSetValue Es el conjunto asociado para ontener la clave
      * @return la clave a partir de una coincidencia de lSValue, si no se encuentra entonces no está dentro del automata
      */
-    public int obtenerKeyEstado(TreeMap<Integer, Set<Integer>> objTreeMapEstados, Set<Integer> objTreeSetValue)
+    public int obtenerKeyEstado(TreeMap<Integer, Set<String>> objTreeMapEstados, Set<String> objTreeSetValue)
     {
-        for (Map.Entry<Integer, Set<Integer>> entry : objTreeMapEstados.entrySet())
+//////////        if (objTreeMapEstados.containsValue(objTreeSetValue))
+//////////        {
+//////////            return objTreeMapEstados.
+//////////        }
+//////////        
+        for (Map.Entry<Integer, Set<String>> objEntryCadenas: objTreeMapEstados.entrySet())
         {
+            
+            
+        }
+        
+        for (Map.Entry<Integer, Set<String>> entry : objTreeMapEstados.entrySet())
+        {
+            
             if (entry.getValue().equals(objTreeSetValue))
             {
+                System.out.println("Valor del conjunto " + objTreeSetValue + " -> Valor del la variable" + entry.getValue());
                 return entry.getKey();
             }
         }
+        System.out.println("Valor " + objTreeSetValue);
         return -1;
     }
 
-    /**
-     * obtenerKey 
-     * Metodo para obtener la clave del alfabeto a partir de una cadena
-     * @param objHashMapCadenas Es el mapa que contiene los elementos de un alfabeto
-     * @param lSValue Es el conjunto asociado para obtener la clave
-     * @return la clave a partir de una coincidencia de lSValue, si no se encuentra entonces no está dentro del automata
-     */
-    public int obtenerKey(HashMap<Integer, String> objHashMapCadenas, String lSValue)
-    {
-        
-        for (Map.Entry<Integer, String> objEntry : objHashMapCadenas.entrySet())
-        {
-            if (objEntry.getValue().trim().equals(lSValue))
-            {
-                return objEntry.getKey();
-            }
-        }
-        return -1;
-    }
-    
     /**
      * obtenerCoordenadaTransicion
      * Método para obtener el indice de la transición asociado de acuerdo a su clave de matriz
@@ -257,7 +267,7 @@ public class TransformAFNDtoAFD
             System.out.println("El automata es no determinista (AFND), por lo tanto es necesario proceder");
             transformarAutomata();
 //            System.out.println(objTreeSetNuevosFinales);
-            for (Map.Entry<Integer, Set<Integer>> objEntryEstados : gobjTreeMapAlfabetoEstados.entrySet())
+            for (Map.Entry<Integer, Set<String>> objEntryEstados : gobjTreeMapAlfabetoEstados.entrySet())
             {
                 String[] lASCadena = objTreeSetNuevosFinales.toString().replace("[", "").replace("]", "").split(",");
                 for (int lEKesimo = 0; lEKesimo < lASCadena.length; lEKesimo++)
@@ -267,7 +277,7 @@ public class TransformAFNDtoAFD
                     {
                         if (Integer.parseInt(lASCadena[lEKesimo].trim()) == Integer.parseInt(lASCadenasSeparadas[lEIesimo].trim()))
                         {
-                            objTreeSetNuevosFinales.add(objEntryEstados.getKey());
+                            objTreeSetNuevosFinales.add(objEntryEstados.getValue());
                         }
                     }
                 }

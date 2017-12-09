@@ -19,8 +19,9 @@ public class Automata
 {
     String gSAlfabetoEstados, gSAlfabetoTransiciones, gSEstadosFinales, gSTransiciones, gSPath_Salida, gSPath_Trabajo;
     HashMap<Integer, String> gobjHashMapAlfabetoTransiciones;
-    TreeMap<Integer, Set<Integer>> gobjTreeMapAutomata, gobjTreeMapAlfabetoEstados;
-    Set<Integer> gobjSetEstadosFinales, gobjSetEstadoInicial;
+    TreeMap<Integer, Set<String>> gobjTreeMapAutomata;
+    TreeMap<Integer, Set<String>> gobjTreeMapAlfabetoEstados;
+    Set<String> gobjSetEstadosFinales, gobjSetEstadoInicial;
 
     /**
      * Automata
@@ -44,7 +45,7 @@ public class Automata
         gobjSetEstadoInicial = new TreeSet<>();
         try
         {
-            gobjSetEstadoInicial.add(Integer.parseInt(objMyListArgsParam.ValueArgsAsString("-EI", ""))); // EI es el estado incial que corresponde al automata, pertenece a Q
+            gobjSetEstadoInicial.add(objMyListArgsParam.ValueArgsAsString("-EI", "")); // EI es el estado incial que corresponde al automata, pertenece a Q
         } catch (Exception objException)
         {
             System.out.println("Error en la definicion del estado inicial " + objException.getMessage());
@@ -68,8 +69,8 @@ public class Automata
 
             for (int lEIterator = 0; lEIterator < lASContenidosAlfabetoEstados.length; lEIterator++)
             {
-                Set<Integer> objSetEstado = new TreeSet<>();
-                objSetEstado.add(Integer.parseInt(lASContenidosAlfabetoEstados[lEIterator].trim()));
+                Set<String> objSetEstado = new TreeSet<>();
+                objSetEstado.add(lASContenidosAlfabetoEstados[lEIterator].trim());
                 gobjTreeMapAlfabetoEstados.put(lEIterator, objSetEstado);
             }
 
@@ -81,7 +82,7 @@ public class Automata
             gobjSetEstadosFinales = new TreeSet<>();
             for (int lEIterator = 0; lEIterator < lASEstadosAceptacion.length; lEIterator++)
             {
-                gobjSetEstadosFinales.add(Integer.parseInt(lASEstadosAceptacion[lEIterator].trim()));
+                gobjSetEstadosFinales.add(lASEstadosAceptacion[lEIterator].trim());
             }
 
         } catch (Exception objException)
@@ -117,9 +118,9 @@ public class Automata
      * Método para construir un autómata en un mapa ordenado con la clase TreeMap
      * @return Un mapa ordenado que contiene los datos relacionados a la función de transición
      */
-    public TreeMap<Integer, Set<Integer>> contruirAutomata()
+    public TreeMap<Integer, Set<String>> contruirAutomata()
     {
-        TreeMap<Integer,Set<Integer>> objTreeMapAutomata = new TreeMap<>();
+        TreeMap<Integer,Set<String>> objTreeMapAutomata = new TreeMap<>();
         String[] lASCadenas = new ManejoArchivos().Read_Text_File_NoNull(gSPath_Trabajo + "/" + gSTransiciones.replace("\\", "/"));
         
         if (lASCadenas.length < 1)
@@ -137,17 +138,17 @@ public class Automata
             for (int lEitera = 0; lEitera < lASCadenas.length; lEitera++)
             {
                 String[] lASElementos = lASCadenas[lEitera].replace("[", "").replace("]", "").split(",");
-                Set<Integer> objTreeSetEstado = new TreeSet<>();
-                objTreeSetEstado.add(Integer.parseInt(lASElementos[0].trim()));
+                Set<String> objTreeSetEstado = new TreeSet<>();
+                objTreeSetEstado.add(lASElementos[0].trim());
 
                 int lEIdentificador = obtenerIdentificador(obtenerKeyEstado(gobjTreeMapAlfabetoEstados, objTreeSetEstado),
                          gobjHashMapAlfabetoTransiciones.size(),
                         obtenerKeyTransicion(gobjHashMapAlfabetoTransiciones, lASElementos[1].trim()));
                
-                Set<Integer> objTreeSetBandera = new TreeSet<>();
+                Set<String> objTreeSetBandera = new TreeSet<>();
                 if (objTreeMapAutomata.isEmpty())
                 {
-                    objTreeSetBandera.add(Integer.parseInt(lASElementos[2].trim()));
+                    objTreeSetBandera.add(lASElementos[2].trim());
                     objTreeMapAutomata.put(lEIdentificador, objTreeSetBandera);
                 } else if (objTreeMapAutomata.containsKey(lEIdentificador))
                 {
@@ -165,13 +166,13 @@ public class Automata
 
                     if (!lBEstadoRepetido)
                     {
-                        objTreeSetBandera.add(Integer.parseInt(lASElementos[2].trim()));
+                        objTreeSetBandera.add(lASElementos[2].trim());
                         objTreeMapAutomata.put(lEIdentificador, objTreeSetBandera);
                     }
                 } else
                 {
                     objTreeSetBandera = new TreeSet<>();
-                    objTreeSetBandera.add(Integer.parseInt(lASElementos[2].trim()));
+                    objTreeSetBandera.add(lASElementos[2].trim());
                     objTreeMapAutomata.put(lEIdentificador, objTreeSetBandera);
                 }
             }
@@ -186,9 +187,9 @@ public class Automata
      * @param objSetValue Es la cadena asociada para ontener la clave
      * @return la clave a partir de una coincidencia de lSValue, si no se encuentra entonces no está dentro del automata
      */
-    public int obtenerKeyEstado(TreeMap<Integer, Set<Integer>> objTreeMapEstados, Set<Integer> objSetValue)
+    public int obtenerKeyEstado(TreeMap<Integer, Set<String>> objTreeMapEstados, Set<String> objSetValue)
     {
-        for (Map.Entry<Integer, Set<Integer>> objEntry : objTreeMapEstados.entrySet())
+        for (Map.Entry<Integer, Set<String>> objEntry : objTreeMapEstados.entrySet())
         {
             if (objEntry.getValue().equals(objSetValue))
             {
@@ -235,7 +236,7 @@ public class Automata
 //        this.muestraAlfabetos();
         gobjTreeMapAutomata = this.contruirAutomata();
         
-        for (Map.Entry<Integer, Set<Integer>> objEntry : gobjTreeMapAutomata.entrySet())
+        for (Map.Entry<Integer, Set<String>> objEntry : gobjTreeMapAutomata.entrySet())
         {
             System.out.println("Clave " + objEntry.getKey());
             System.out.println("Con estados " + objEntry.getValue().toString());
