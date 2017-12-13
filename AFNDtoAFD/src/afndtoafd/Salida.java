@@ -47,7 +47,7 @@ public class Salida
         }
         
         System.out.println("Generando Archivos de salida del AFD");
-        generaSimboloInicialArchivo();
+//        generaSimboloInicialArchivo();
         generaEstadosArchivoTexto();
         generaTransicionesArchivoTexto();
         generaEstadosFinales();
@@ -74,7 +74,7 @@ public class Salida
         lSSalida += "\r\n \r\n";
         lSSalida += "# EI es el estado incial que corresponde al automata, pertenece a Q";
         lSSalida += "\r\n \r\n";
-        lSSalida += "-EI \t \"" + gobjTreeSetEstadoInicial.toString().replace("[", "").replace("]", "") + "\"";
+        lSSalida += "-EI \t " + gobjTreeSetEstadoInicial.toString().replace("[", "").replace("]", "") + "";
         lSSalida += "\r\n \r\n";
         lSSalida += "# F corresponde a los estados o estado final que corresponde al automata, pertenece a Q";
         lSSalida += "\r\n \r\n";
@@ -122,11 +122,11 @@ public class Salida
         String lSSalida = "";
         for (Map.Entry<Integer, Set<String>> objEntry: gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados.entrySet())
         {
-            lSSalida += objEntry.getKey() + ",";
+            lSSalida += objEntry.getValue() + ",";
         }
         if (lSSalida.trim().lastIndexOf(",") == lSSalida.length() -1)
         {
-            lSSalida = lSSalida.trim().substring(0, lSSalida.length() -1);
+            lSSalida = lSSalida.trim().substring(0, lSSalida.length() -1).replace(" ", "");
         }
         System.out.println("Estados salida: " + lSSalida);
         new ManejoArchivos().Write_String_File(gSPathSalida + "/" + gSAlfeboEstados, lSSalida);
@@ -148,9 +148,9 @@ public class Salida
      */
     public void generaEstadosFinales()
     {
-        String lSSalida= gobjTransformAFNDtoAFD.objTreeSetNuevosFinales.toString().replace("[", "").replace("]", "").trim();
-        System.out.println("Estados finales " + lSSalida);
-        new ManejoArchivos().Write_String_File(gSPathSalida + "/" + gSEdosFinales, lSSalida);
+        String lSSalida= gobjTransformAFNDtoAFD.objTreeSetNuevosFinales.toString().trim().substring(1, gobjTransformAFNDtoAFD.objTreeSetNuevosFinales.toString().length()-1);
+        System.out.println("Estados finales " + lSSalida.replace(" ", ""));
+        new ManejoArchivos().Write_String_File(gSPathSalida + "/" + gSEdosFinales, lSSalida.replace(" ", ""));
     }
     
     /**
@@ -162,13 +162,14 @@ public class Salida
         String lSSalida = "";
         for (Map.Entry<Integer, Set<String>> objEntryFT: gobjTransformAFNDtoAFD.gobjTreeMapMapaAutomata.entrySet())
         {
-            String lSEstadoActual = String.valueOf(gobjTransformAFNDtoAFD.obtenerKeyEstado(gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados, gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados.get(gobjTransformAFNDtoAFD.obtenerCoordenadaEstado(objEntryFT.getKey(), gobjTransformAFNDtoAFD.gobjHashMapAlfabetoTransiciones.size()) -1)));
+            String lSEstadoActual = gobjTransformAFNDtoAFD.gobjTreeMapAlfabetoEstados.get(gobjTransformAFNDtoAFD.obtenerCoordenadaEstado(objEntryFT.getKey(), 
+                            gobjTransformAFNDtoAFD.gobjHashMapAlfabetoTransiciones.size()) -1).toString();
             String lSTransicion = gobjTransformAFNDtoAFD.gobjHashMapAlfabetoTransiciones.get(gobjTransformAFNDtoAFD.obtenerCoordenadaTransicion(objEntryFT.getKey(), gobjTransformAFNDtoAFD.gobjHashMapAlfabetoTransiciones.size()) -1);
-            String lSEstadoSiguiente = gobjTransformAFNDtoAFD.gobjTreeMapMapaAutomata.get(objEntryFT.getKey()).toString().replace("[", "").replace("]", "");
-            System.out.println("Estado actual " + lSEstadoActual + ", trasicion " + lSTransicion + " estado siguiente " + lSEstadoSiguiente);
-            lSSalida += "[" + lSEstadoActual + "," + lSTransicion + "," + lSEstadoSiguiente + "]\r\n";
+            String lSEstadoSiguiente = gobjTransformAFNDtoAFD.gobjTreeMapMapaAutomata.get(objEntryFT.getKey()).toString();
+            System.out.println("Estado actual " + lSEstadoActual + ", transicion " + lSTransicion + " estado siguiente " + lSEstadoSiguiente);
+            lSSalida += "" + lSEstadoActual + "," + lSTransicion + "," + lSEstadoSiguiente + "\r\n";
         }
-        new ManejoArchivos().Write_String_File(gSPathSalida + "/" + gSFuncionTransicion, lSSalida);
+        new ManejoArchivos().Write_String_File(gSPathSalida + "/" + gSFuncionTransicion, lSSalida.replace(" ", ""));
     }
     
 }

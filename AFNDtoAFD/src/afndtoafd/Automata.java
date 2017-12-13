@@ -156,7 +156,7 @@ public class Automata
                     boolean lBEstadoRepetido = false;
                     for (Iterator objIterator = objTreeSetBandera.iterator(); objIterator.hasNext();)
                     {
-                        if (Integer.parseInt(String.valueOf(objIterator.next())) == Integer.parseInt(lASElementos[2].trim()))
+                        if (String.valueOf(objIterator.next()).equals(lASElementos[2].trim()))
                         {
                             System.out.println("Hay producciones en la Función de transición repetidos, por lo tanto se van a unificar");
                             lBEstadoRepetido = true;
