@@ -24,5 +24,6 @@
 
 #Rutas de trabajo
 
--FWORK		"Prueba_EdosAlcanzables\Input_1"
--FSALIDA	"Prueba_EdosAlcanzables\Output"
+-FWORK		"C:\Users\XDESIGN\Documents\NetBeansProjects\Automatas-y-compiladores\Pruebas_componentes\0001__EdosAlcanzables\Prueba_EdosAlcanzables\Input_1\"
+-FSALIDA	"C:\Users\XDESIGN\Documents\NetBeansProjects\Automatas-y-compiladores\Pruebas_componentes\0001__EdosAlcanzables\Prueba_EdosAlcanzables\Input_1\Output\"
+

@@ -2,7 +2,7 @@
 REM "Desactivamos la salida en consola de los comandos"
 
 REM "Definimos el Alcance de nuestras variables; Habilitamos las extensiones de los comandos; creamos variables para el path y la ruta del archivo .bat"
-SETLOCAL ENABLEEXTENSIONS
+SETLOCAL ENABLEDELAYEDEXPANSION ENABLEEXTENSIONS 
 SET me=%~n0
 SET parent=%~dp0
 
@@ -23,7 +23,7 @@ ECHO.
 :: "Imprime la ubicacion actual"
 CD
 :: "Ejecuta los componentes"
-
+ECHO.
 ECHO Elija de la siguiente lista los componentes que desea ejecutar, escriba los numeros separados por espacio: 
 ECHO.
 ECHO 1. AFND_TO_AFD
@@ -31,16 +31,32 @@ ECHO 2. EdosAlcanzables
 ECHO 3. AFD_TO_AFDM
 ECHO 4. Prueba_ExpRegular
 ECHO 5. Turing
-SET /p steps=Steps: 
+SET /p "listOfComponents=Componentes a ejecutar: " 
 ECHO.
-ECHO %steps%
-CALL :flujo "%teps%"
+ECHO %listOfComponents%
+ECHO %listOfComponents% > "SecuenciaDeComponentes.txt"
+
+SET count=1
+FOR /f %%G IN (SecuenciaDeComponentes.txt) DO (call :subroutine "%%G")
+::FOR /f "tokens=*" %%G IN (SecuenciaDeComponentes.txt) DO (call :subroutine "%%G")
 
 
 
+::SET A/ count=1
+::FOR %%G IN (%listOfComponents%) DO (
+
+::ECHO %%G
+::SET step%count%=%%G
+::ECHO step%count%: %%G
+
+::Configurar los CONFIG para encadenar la prueba
 
 
-DIR
+::)
+
+
+
+CD
 ECHO.
 ECHO Copie los archivos del automata a la carpeta: 01_In_Automata. Y verifique la ruta -FSALIDA del archivo de salida CONFIG
 ECHO.
@@ -90,22 +106,29 @@ EXIT /B %ERRORLEVEL%
 
 :: FUNCTION to write to a log file and write to stdout
 :flujo
-ECHO %1
-ECHO %2
-ECHO %3
-ECHO %4
-ECHO %5
+ECHO %~1
+ECHO %~2
+ECHO %~3
+ECHO %~4
+ECHO %~5
 ::-FWORK "0002__Entradas\Pruebas_documento\Prueba_1"
 ::-FSALIDA	"0003__Salidas\0001__Salidas_1"
 
 EXIT /B 0
 
+
+
 :: FUNCTION to write to a log file and write to stdout
 :tee
-ECHO %* >> "%log%"
-ECHO %*
+ ECHO %* >> "%log%"
+ ECHO %*
 EXIT /B 0
 
 
+:: FUNCTION to display list of arguments
+:subroutine
+ echo %count%:%1
+ set /a count+=1
+EXIT /B 0
 
 

@@ -57,7 +57,7 @@ EXIT /B %ERRORLEVEL%
 :: *********************** CuasiFunctions ***************************
 
 
-:: a function to write to a log file and write to stdout
+:: FUNCTION to write to a log file and write to stdout
 :tee
 ECHO %* >> "%log%"
 ECHO %*
@@ -67,7 +67,11 @@ EXIT /B 0
 :crearArbolExpReg
 ECHO Creando el arbol de Directorios para Pruebas de Expresiones Regulares %*
 ECHO.
-SET CARP=Pruebas_ExpReg_%*
+FOR /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%j
+SET ldt=%ldt:~0,4%%ldt:~4,2%%ldt:~6,2%_%ldt:~8,2%%ldt:~10,2%
+ECHO %ldt%
+
+SET CARP=Prba_ExpReg_%*_%ldt%
 MD %CARP%
 CD %CARP%
 MD 01_In_ExpReg_To_Automata
@@ -94,7 +98,11 @@ EXIT /B 0
 :crearArbolAutomata
 ECHO Creando el arbol de Directorios para Pruebas de Automatas %*
 ECHO.
-SET CARP=Pruebas_Automatas_%*
+FOR /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%j
+SET ldt=%ldt:~0,4%%ldt:~4,2%%ldt:~6,2%_%ldt:~8,2%%ldt:~10,2%
+ECHO %ldt%
+
+SET CARP=Prba_Automata_%*_%ldt%
 MD %CARP%
 CD %CARP%
 MD 01_In_Automata
